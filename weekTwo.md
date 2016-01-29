@@ -92,29 +92,28 @@ You will be using your skills in:
 
 ### ADMIN Show Page
 ```
-- From the restaurants index page, user should be able to go to an admin page
-- The admin home page should list all the restaurants and their ratings. 
+- From the restaurants index page, admin should be able to go to an admin page
+- The admin home page should list all the restaurants and their ratings.
+- The admin should be able to edit or delete a restaurant
 ```
 
-
-
-### ADMIN Show page
+####Stretch
 ```
-- User has the option
+- The admin should be able to edit employees from their restaurant listings
 ```
 ![image](images/admin.png)
 
-
-####Stretch
-* The user should see an error when a duplicate is submitted
-* The error should be specific and say "This *item* already exists!"
-
-### Validations
+### Validations (for ALL forms in your application)
 ```
--
+- Must have client side validations (think input type = 'date')
+- Forms cannot be submitted if there are blank input fields
+- Validation code should be taken out of routes
+- User should get uniquely designed error messages
+- User should see error specific messages
+- Users form data should stay pre-filled when there are errors
 ```
-* The user should be able to enter info about an employee and submits the form.
-* The form should not be able to be submitted with blank fields.
-* The user should see an error with unique styling when the form is incomplete.
-* The user should see specific errors about what is missing in the form.
-* The user's form data should persist when the page reloads with errors.
+
+### STRETCH
+```
+- The user should see an error when a duplicate entry is submitted
+```
