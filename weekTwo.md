@@ -12,7 +12,7 @@ You will be using your skills in:
   * Validations
   * Unirest
 
-#### User Show Page
+#### User Show Page (Reviews)
 ```
 - When a user comes to the restaurant show page, they will see restaurant information, restaurant reviews, and employees of the restaurant
 - reviews and employees should be in 2 column format
@@ -43,10 +43,6 @@ You will be using your skills in:
 ```
 - When a user clicks on a review, they are taken to a review show page where they can now read the full review
 ```
-### Stretch
-```
-- Users can click on the '...' after a review, and the entire review populates right there where all the reviews are rather than going to a separate show page
-```
 
 ### Edit Review
 ```
@@ -56,13 +52,51 @@ You will be using your skills in:
 - User has the option to delete their review  
 - When the user submits their changes, they are taken to the restaurant show page where they can see all the reviews including the changes they just made
 ```
-####Stretch:
-* When a user is on the show all restaurants page (index), they can see how many reviews this restaurant has
-* When a user sees the overall restaurant rating, it is an average of the ratings of all the reviews
-* The reviews are shown as snippets if they are longer than the a lotted space
-* The review can be expanded by clicking on the *...* of the snippet
-
+#### Stretch:
+```
+- When a user sees the overall restaurant rating, it is an average of the ratings of all the reviews
+- The reviews are shown as snippets if they are longer than the a lotted space
+- The review can be expanded by clicking on the *...* of the snippet
+```
 ![image](images/review.jpg)
+
+
+
+### User Show Page (Employees)
+```
+- When a user comes to the restaurant show page, they should be able see a table of restaurant employees
+- A user should be able to add a new employee
+- Employees should have a:
+  - First Name
+  - Last Name
+  - Position (Manager, Server, Host, Chef)
+- Users should be able to click on an employee's name and go to an employee show page
+```
+![image](images/show.jpg)
+![image](images/employee.jpg)
+
+
+### Employee Edit Page
+```
+- The user can edit the Employee Information
+- Employee information should be pre-filled when editing
+- User has the option to cancel the edit
+- The user can delete an Employee
+```
+
+#### Stretch:
+```
+* The user can add multiple employees at once
+* The User can delete multiple employees at once
+```
+
+### ADMIN Show Page
+```
+- From the restaurants index page, user should be able to go to an admin page
+- The admin home page should list all the restaurants and their ratings. 
+```
+
+
 
 ### ADMIN Show page
 ```
@@ -71,31 +105,16 @@ You will be using your skills in:
 ![image](images/admin.png)
 
 
-### 2. Employees
-* When a user comes to the show one restaurant page, they should be able to add employees
-* Employees should have a:
-  * First Name
-  * Last Name
-  * Position (Manager, server, host, chef)
-  * restaurant association
-* Employees should show up on the show one restaurant page
-* The user can edit the employee information
-* The user can delete a employee
+####Stretch
+* The user should see an error when a duplicate is submitted
+* The error should be specific and say "This *item* already exists!"
 
-####Stretch:
-* The user can add multiple employees at once
-* The User can delete multiple employees at once
-
-![image](images/employee.jpg)
-
-
-### 3. Validations
+### Validations
+```
+-
+```
 * The user should be able to enter info about an employee and submits the form.
 * The form should not be able to be submitted with blank fields.
 * The user should see an error with unique styling when the form is incomplete.
 * The user should see specific errors about what is missing in the form.
 * The user's form data should persist when the page reloads with errors.
-
-####Stretch
-* The user should see an error when a duplicate is submitted
-* The error should be specific and say "This *item* already exists!"
