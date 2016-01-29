@@ -1,6 +1,10 @@
-#Going further with restaurants
+# Week Two Of Restaurants
+Read through this entire document and create a DATA MODEL of your app!
+Use *lucidchart* or *draw.io*
 
-###Things we learned this week:
+___Drop your data model here___
+
+You will be using your skills in:
   * Joins
   * Migrations
   * Associations
@@ -8,32 +12,50 @@
   * Validations
   * Unirest
 
-#Things you will be adding by using these concepts
-
-**!!!!!!! Be sure to read through this whole document, then DATA MODEL your app!
-Your data model should be done using draw.io or lucidchart!
-Attach a link or screen shot of your data model to your readMe!!!!!!!**
-
-###USER Show page
+#### User Show Page
+```
+- When a user comes to the restaurant show page, they will see restaurant information, restaurant reviews, and employees of the restaurant
+- reviews and employees should be in 2 column format
+- Users should have an option to add a new review
+- Reviews should have a reviewer name, date of review, review, rating and option to edit
+```
+##### Stretch:
+```
+- The restaurant rating is calculated based on the average of the reviews
+- Reviews are ordered with the most recent DATE at the top
+```
 ![image](images/show.jpg)
 
-###ADMIN Show page
-![image](images/admin.png)
-### 1. Reviews
-* When a user comes to the show page of a restaurant they will see many reviews under the description
-* The user has the option to add a new review
-* The user can add a review consisting of:
-  * Name
-  * Date
-  * Review
-  * Rating of restaurant
-  * restaurant association
-* The user can post their new review
-* The user can go and edit a review
-* When the user edits a review, the information should be pre-filled
-* The user can delete a review
-* The reviews should all occupy the same amount of space on the page ie. Same box size
+### New Review
 
+```
+- When a user clicks to add a new review, they are taken to a new review page for that restaurant
+- The new review should include:
+  - Reviewer name
+  - Review date
+  - Rating
+  - Review
+- The user has the option to submit or cancel from this page
+- When the user posts their new review, they are taken to the restaurant show page where they see all the reviews for that restaurant
+```
+
+### Show Review
+```
+- When a user clicks on a review, they are taken to a review show page where they can now read the full review
+```
+### Stretch
+```
+- Users can click on the '...' after a review, and the entire review populates right there where all the reviews are rather than going to a separate show page
+```
+
+### Edit Review
+```
+- When the user clicks 'edit' on a review, they are taken to an edit review page
+- User sees all the information for the review already pre-filled
+- User can cancel or submit their changes
+- User has the option to delete their review  
+- When the user submits their changes, they are taken to the restaurant show page where they can see all the reviews including the changes they just made
+```
 ####Stretch:
 * When a user is on the show all restaurants page (index), they can see how many reviews this restaurant has
 * When a user sees the overall restaurant rating, it is an average of the ratings of all the reviews
@@ -41,6 +63,13 @@ Attach a link or screen shot of your data model to your readMe!!!!!!!**
 * The review can be expanded by clicking on the *...* of the snippet
 
 ![image](images/review.jpg)
+
+### ADMIN Show page
+```
+- User has the option
+```
+![image](images/admin.png)
+
 
 ### 2. Employees
 * When a user comes to the show one restaurant page, they should be able to add employees

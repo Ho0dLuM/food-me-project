@@ -12,4 +12,9 @@ router.get('/new', function(req,res,next){
 });
 
 //POST CREATE a new restaurant
+router.post('/new', function(req,res,next){
+  res.redirect('/restaurants');
+});
+
+
 module.exports = router;
