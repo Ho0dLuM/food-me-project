@@ -38,3 +38,18 @@ Keep all the fields of restaurants available and add ....
 ```
 
 ![image](images/multipleNeighborhoods.png)
+
+### Validations
+
+```
+- Users should get error messages for incorrect address format
+- Users must have the correct number of characters for Zip Code field
+- Street address cannot be longer than 50 characters
+- None of the address inputs can be empty
+```
+
+## Stretch
+
+1. See if you can add pins to your google maps of the exact address
+2. See if you can get one main map with pins of all the restaurant locations
+3. See if you can get some sort of driving direction functionality placed in there!  
