@@ -5,3 +5,6 @@ __Remember to practice good workflow here! After getting each little aspect work
 
 
 [Week One](weekOne.md)
+[Week Two](weekTwo.md)
+[Week Three](weekThree.md)
+[Week Four](weekFour.md)

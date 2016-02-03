@@ -1,6 +1,10 @@
-#Going further with restaurants
+# Week Two Of Restaurants
+Read through this entire document and create a DATA MODEL of your app!
+Use *lucidchart* or *draw.io*
 
-###Things we learned this week:
+___Drop your data model here___
+
+You will be using your skills in:
   * Joins
   * Migrations
   * Associations
@@ -8,65 +12,108 @@
   * Validations
   * Unirest
 
-#Things you will be adding by using these concepts
-
-**!!!!!!! Be sure to read through this whole document, then DATA MODEL your app!
-Your data model should be done using draw.io or lucidchart!
-Attach a link or screen shot of your data model to your readMe!!!!!!!**
-
-###USER Show page
+#### User Show Page (Reviews)
+```
+- When a user comes to the restaurant show page, they will see restaurant information, restaurant reviews, and employees of the restaurant
+- reviews and employees should be in 2 column format
+- Users should have an option to add a new review
+- Reviews should have a reviewer name, date of review, review, rating and option to edit
+```
+##### Stretch:
+```
+- The restaurant rating is calculated based on the average of the reviews
+- Reviews are ordered with the most recent DATE at the top
+```
 ![image](images/show.jpg)
 
-###ADMIN Show page
-![image](images/admin.png)
-### 1. Reviews
-* When a user comes to the show page of a restaurant they will see many reviews under the description
-* The user has the option to add a new review
-* The user can add a review consisting of:
-  * Name
-  * Date
-  * Review
-  * Rating of restaurant
-  * restaurant association
-* The user can post their new review
-* The user can go and edit a review
-* When the user edits a review, the information should be pre-filled
-* The user can delete a review
-* The reviews should all occupy the same amount of space on the page ie. Same box size
+### New Review
 
-####Stretch:
-* When a user is on the show all restaurants page (index), they can see how many reviews this restaurant has
-* When a user sees the overall restaurant rating, it is an average of the ratings of all the reviews
-* The reviews are shown as snippets if they are longer than the a lotted space
-* The review can be expanded by clicking on the *...* of the snippet
+```
+- When a user clicks to add a new review, they are taken to a new review page for that restaurant
+- The new review should include:
+  - Reviewer name
+  - Review date
+  - Rating
+  - Review
+- The user has the option to submit or cancel from this page
+- When the user posts their new review, they are taken to the restaurant show page where they see all the reviews for that restaurant
+```
 
+### Show Review
+```
+- When a user clicks on a review, they are taken to a review show page where they can now read the full review
+```
+
+### Edit Review
+```
+- When the user clicks 'edit' on a review, they are taken to an edit review page
+- User sees all the information for the review already pre-filled
+- User can cancel or submit their changes
+- User has the option to delete their review  
+- When the user submits their changes, they are taken to the restaurant show page where they can see all the reviews including the changes they just made
+```
+#### Stretch:
+```
+- When a user sees the overall restaurant rating, it is an average of the ratings of all the reviews
+- The reviews are shown as snippets if they are longer than the a lotted space
+- The review can be expanded by clicking on the *...* of the snippet
+```
 ![image](images/review.jpg)
 
-### 2. Employees
-* When a user comes to the show one restaurant page, they should be able to add employees
-* Employees should have a:
-  * First Name
-  * Last Name
-  * Position (Manager, server, host, chef)
-  * restaurant association
-* Employees should show up on the show one restaurant page
-* The user can edit the employee information
-* The user can delete a employee
 
-####Stretch:
-* The user can add multiple employees at once
-* The User can delete multiple employees at once
 
+### User Show Page (Employees)
+```
+- When a user comes to the restaurant show page, they should be able see a table of restaurant employees
+- A user should be able to add a new employee
+- Employees should have a:
+  - First Name
+  - Last Name
+  - Position (Manager, Server, Host, Chef)
+- Users should be able to click on an employee's name and go to an employee show page
+```
+![image](images/show.jpg)
 ![image](images/employee.jpg)
 
 
-### 3. Validations
-* The user should be able to enter info about an employee and submits the form.
-* The form should not be able to be submitted with blank fields.
-* The user should see an error with unique styling when the form is incomplete.
-* The user should see specific errors about what is missing in the form.
-* The user's form data should persist when the page reloads with errors.
+### Employee Edit Page
+```
+- The user can edit the Employee Information
+- Employee information should be pre-filled when editing
+- User has the option to cancel the edit
+- The user can delete an Employee
+```
+
+#### Stretch:
+```
+* The user can add multiple employees at once
+* The User can delete multiple employees at once
+```
+
+### ADMIN Show Page
+```
+- From the restaurants index page, admin should be able to go to an admin page
+- The admin home page should list all the restaurants and their ratings.
+- The admin should be able to edit or delete a restaurant
+```
 
 ####Stretch
-* The user should see an error when a duplicate is submitted
-* The error should be specific and say "This *item* already exists!"
+```
+- The admin should be able to edit employees from their restaurant listings
+```
+![image](images/admin.png)
+
+### Validations (for ALL forms in your application)
+```
+- Must have client side validations (think input type = 'date')
+- Forms cannot be submitted if there are blank input fields
+- Validation code should be taken out of routes
+- User should get uniquely designed error messages
+- User should see error specific messages
+- Users form data should stay pre-filled when there are errors
+```
+
+### STRETCH
+```
+- The user should see an error when a duplicate entry is submitted
+```
