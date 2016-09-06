@@ -27,7 +27,7 @@
       express: app,
       autoescape: true
     });
-    app.set('view engine', 'html');
+    app.set('view engine', 'njk');
 
     // *** app middleware *** //
     if (process.env.NODE_ENV !== 'test') {
