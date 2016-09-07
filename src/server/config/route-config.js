@@ -1,17 +1,13 @@
 (function (routeConfig) {
-
-  'use strict';
+  'use strict'
 
   routeConfig.init = function (app) {
-
     // *** routes *** //
-    const routes = require('../routes/index');
-    const restaurants = require('../routes/restaurants');
+    const routes = require('../routes/index')
+    const restaurants = require('../routes/restaurants')
 
     // *** register routes *** //
-    app.use('/', routes);
-    app.use('/restaurants', restaurants);
-
-  };
-
-})(module.exports);
+    app.use('/', routes)
+    app.use('/restaurants', restaurants)
+  }
+})(module.exports)
