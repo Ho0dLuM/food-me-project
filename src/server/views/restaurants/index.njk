@@ -6,6 +6,9 @@
 
   <div class="container">
     <h1>{{title}}</h1>
+    {% for restaurant in restaurants %}
+      <p>{{ restaurant.name }}</p>
+    {% endfor %}
   </div>
 
 {% endblock %}
