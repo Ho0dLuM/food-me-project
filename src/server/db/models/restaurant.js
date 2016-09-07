@@ -1,26 +1,21 @@
 const Promise = require('bluebird')
 const knex = require('../connection')
 
-function get (options) {
-  let { id, address } = options
+function get (id) {
   let promise = knex('restaurants')
 
   if (id) { promise = promise.where('id', id) }
-  if (address) { promise = withAddress(promise) }
 
   return promise
 }
 
-function withAddress (restaurantsPromise) {
-  return restaurantsPromise
-    .then((restaurants) => {
-      let promises = restaurants.map(createAddressPromise)
-      return Promise.all(promises)
-    })
+function getAddresses (restaurants) {
+  var promises = restaurants.map(createAddressPromise)
+  return Promise.all(promises)
 }
 
 module.exports = {
-  get, withAddress
+  get, getAddresses
 }
 
 // *** helper functions *** //
