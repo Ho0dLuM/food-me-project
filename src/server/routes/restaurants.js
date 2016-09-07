@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const knex = require('../db')
+const { Restaurant } = require('../db')
 
 router.get('/', function (req, res, next) {
-  knex('restaurants').then((restaurants) => {
+  Restaurant.get({
+    address: true
+  }).then((restaurants) => {
     res.render('restaurants/index', {
       title: 'restaurants index',
       restaurants

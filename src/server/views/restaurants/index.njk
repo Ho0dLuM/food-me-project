@@ -7,7 +7,7 @@
   <div class="container">
     <h1>{{title}}</h1>
     {% for restaurant in restaurants %}
-      <p>{{ restaurant.name }}</p>
+      <p>{{ restaurant | dump }}</p>
     {% endfor %}
   </div>
 
