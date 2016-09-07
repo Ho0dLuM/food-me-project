@@ -1,0 +1,12 @@
+{% extends "../_base.njk" %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <h1>{{ restaurant.name }}</h1>
+    <p>{{ restaurant | dump }}</p>
+  </div>
+
+{% endblock %}
