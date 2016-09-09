@@ -10,6 +10,7 @@
   const morgan = require('morgan')
   const nunjucks = require('nunjucks')
   const favicon = require('serve-favicon')
+  const methodOverride = require('method-override')
 
   // *** view folders *** //
   const viewFolders = [
@@ -34,6 +35,7 @@
 
     app.use(favicon(path.join(__dirname, '..', '..', 'client', 'images', 'favicon.ico')))
     app.use(cookieParser())
+    app.use(methodOverride('_method'))
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: false }))
     // // uncomment if using express-session
