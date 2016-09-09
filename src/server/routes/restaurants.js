@@ -36,7 +36,9 @@ function getOneRestaurantRoute (req, res, next) {
   Restaurant.get(req.params.id)
   .then(Restaurant.getAddresses)
   .then(Restaurant.getReviews)
-  .then(Restaurant.getUsersAndAccountsFromReviews)
+  .then(Restaurant.getEmployees)
+  .then(Restaurant.getUsersFromEmployees)
+  .then(Restaurant.getUsersFromReviews)
   .then((restaurants) => {
     let restaurant = restaurants[0]
     res.render('restaurants/show', { restaurant })

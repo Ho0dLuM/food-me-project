@@ -14,6 +14,17 @@ module.exports = {
     primary: { resource: 'restaurant', key: 'id' },
     foreign: { resource: 'review', key: 'restaurant_id' }
   }),
+  getEmployees: util.getResource({
+    table: 'employees',
+    primary: { resource: 'restaurant', key: 'id' },
+    foreign: { resource: 'employee', key: 'restaurant_id' }
+  }),
+  getUsersFromEmployees: util.getJoin({
+    table: 'employees',
+    paths: [
+      ['users', 'users.id', 'employees.user_id']
+    ]
+  }),
   getUsersFromReviews: util.getJoin({
     table: 'reviews',
     paths: [
