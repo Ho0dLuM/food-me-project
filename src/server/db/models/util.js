@@ -20,6 +20,12 @@ function create (table) {
   }
 }
 
+function update (table) {
+  return (body) => {
+    return knex(table).update(body).where({ id: body.id })
+  }
+}
+
 /***
   the getResource() function takes a number of option arguments to create a link between the primary resource and a secondary resource. It essentially joins the two records together by stating which ids should be matching but does so without re-querying the original set of data.
 
@@ -115,4 +121,4 @@ function compose (primaries, relationName, primaryName, secondaryName) {
   }
 }
 
-module.exports = { get, create, getResource, getJoin, compose }
+module.exports = { get, create, update, getResource, getJoin, compose }

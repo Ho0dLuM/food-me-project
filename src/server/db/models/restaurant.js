@@ -3,6 +3,7 @@ const util = require('./util')
 module.exports = {
   get: util.get('restaurants'),
   create: util.create('restaurants'),
+  update: util.update('restaurants'),
   getAddresses: util.getResource({
     table: 'addresses',
     primary: { resource: 'restaurant', key: 'address_id' },
