@@ -1,7 +1,7 @@
 {% set cuisines = [ 'american', 'italian', 'mexican', 'thai' ] %}
 {% for cuisine in cuisines %}
   <option value="{{ loop.index }}"
-    {% if restaurant.cuisine_type == loop.index %}
+    {% if restaurant.cuisine_type+1 == loop.index %}
       selected="selected"
     {% endif %}>
     {{ cuisine | capitalize }}

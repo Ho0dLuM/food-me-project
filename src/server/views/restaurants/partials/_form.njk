@@ -1,4 +1,4 @@
-{% include "./_errors.njk" %}
+{% include "../../partials/_errors.njk" %}
 
 <form action="/restaurants/{% if restaurant.id %}{{ restaurant.id }}?_method=PUT{% endif %}" method="POST">
   <div class="form-group">
