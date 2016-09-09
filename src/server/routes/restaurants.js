@@ -2,16 +2,22 @@ const express = require('express')
 const router = express.Router()
 const { Address, Restaurant } = require('../db')
 const util = require('./util')
+const segment = util.segmentBody('restaurant')
 
 router.get('/', getAllRestaurantsRoute)
 router.get('/new', newRestaurantRoute)
 router.get('/:id', getOneRestaurantRoute)
 router.get('/:id/edit', editRestaurantRoute)
 router.post('/',
-  util.segmentBody('restaurant'),
+  segment,
   Restaurant.validate,
   Address.validate,
   createRestaurantRoute)
+router.put('/:id',
+  segment,
+  Restaurant.validate,
+  Address.validate,
+  updateRestaurantRoute)
 
 // ------------------------------------- //
 
@@ -43,7 +49,8 @@ function editRestaurantRoute (req, res, next) {
   .then(Restaurant.getAddresses)
   .then((restaurants) => {
     let restaurant = restaurants[0]
-    res.render('restaurants/edit', { restaurant })
+    let address = restaurant.addresses[0]
+    res.render('restaurants/edit', { restaurant, address })
   })
 }
 
@@ -55,12 +62,21 @@ function createRestaurantRoute (req, res, next) {
     Address.create(req.body.address)
     .then(address => {
       req.body.restaurant.address_id = address[0].id
-      return Restaurant.create(req.body.restaurant).then(restaurant => {
-        restaurant[0].address = address
-        return restaurant[0]
-      })
+      return Restaurant.create(req.body.restaurant)
     })
-    .then(restaurant => res.json(restaurant))
+    .then(restaurant => res.redirect('/restaurants'))
+    .catch(util.catchError(next))
+  }
+}
+
+function updateRestaurantRoute (req, res, next) {
+  if (req.body.errors) {
+    let { address, errors, restaurant } = req.body
+    res.render('restaurants/edit', { errors, restaurant, address })
+  } else {
+    Address.update(req.body.address)
+    .then(address => Restaurant.update(req.body.restaurant))
+    .then(restaurant => res.redirect('/restaurants'))
     .catch(util.catchError(next))
   }
 }

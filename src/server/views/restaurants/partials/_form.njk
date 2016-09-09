@@ -1,6 +1,6 @@
 {% include "./_errors.njk" %}
 
-<form action="/restaurants" method="POST">
+<form action="/restaurants/{% if restaurant.id %}{{ restaurant.id }}?_method=PUT{% endif %}" method="POST">
   <div class="form-group">
     <div class="row">
       <div class="col-md-6">
@@ -52,5 +52,12 @@
     </div>
   </div>
 
+  {% if restaurant.id %}
+    <input type="hidden" name="id" value="{{ restaurant.id }}">
+  {% endif %}
+
+  {% if address.id %}
+    <input type="hidden" name="address[id]" value="{{ address.id }}">
+  {% endif %}
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
