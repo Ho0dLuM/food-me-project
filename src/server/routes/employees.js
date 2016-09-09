@@ -1,16 +1,45 @@
 const express = require('express')
-const router = express.Router()
+const router = express.Router({ mergeParams: true })
 const { Employee, User } = require('../db')
 const util = require('./util')
 const segment = util.segmentBody('employee')
 
+router.get('/new', newEmployeeRoute)
 router.get('/:id/edit', editEmployeeRoute)
+router.post('/',
+  segment,
+  Employee.validate,
+  User.validate,
+  createEmployeeRoute)
 router.put('/:id',
   segment,
   Employee.validate,
+  User.validate,
   updateEmployeeRoute)
 
 // ------------------------------------- //
+
+function newEmployeeRoute (req, res, next) {
+  res.render('employees/new', {
+    employee: { restaurant_id: req.params.restaurantId },
+    user: {}
+  })
+}
+
+function createEmployeeRoute (req, res, next) {
+  if (req.body.errors) {
+    let { employee, errors, user } = req.body
+    res.render('employees/new', { employee, errors, user })
+  } else {
+    User.create(req.body.user)
+    .then(user => {
+      req.body.employee.user_id = user[0].id
+      return Employee.create(req.body.employee)
+    })
+    .then(employee => res.redirect(`/restaurants/${employee[0].restaurant_id}`))
+    .catch(util.catchError(next))
+  }
+}
 
 function editEmployeeRoute (req, res, next) {
   Employee.get(req.params.id)
@@ -24,8 +53,8 @@ function editEmployeeRoute (req, res, next) {
 
 function updateEmployeeRoute (req, res, next) {
   if (req.body.errors) {
-    let { employee, errors, restaurant, user } = req.body
-    res.render('employees/edit', { errors, employee, restaurant, user })
+    let { employee, errors, user } = req.body
+    res.render('employees/edit', { errors, employee, user })
   } else {
     User.update(req.body.user)
     .then(user => Employee.update(req.body.employee))
