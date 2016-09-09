@@ -22,7 +22,7 @@ function create (table) {
 
 function update (table) {
   return (body) => {
-    return knex(table).update(body).where({ id: body.id })
+    return knex(table).update(body, '*').where({ id: body.id })
   }
 }
 
