@@ -20,8 +20,8 @@ const paths = {
     path.join('src', 'client', 'css', '*.css')
   ],
   views: [
-    path.join('src', 'server', '**', '*.html'),
-    path.join('src', 'server', '*.html')
+    path.join('src', 'server', '**', '*.njk'),
+    path.join('src', 'server', '*.njk')
   ],
   server: path.join('src', 'server', 'server.js')
 };
@@ -30,7 +30,7 @@ const lrPort = 35729;
 
 const nodemonConfig = {
   script: paths.server,
-  ext: 'html js css',
+  ext: 'html njk js css',
   ignore: ['node_modules'],
   env: {
     NODE_ENV: 'development'
@@ -80,7 +80,7 @@ gulp.task('nodemon', () => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch(paths.html, ['html']);
+  gulp.watch(paths.views, ['views']);
   gulp.watch(paths.scripts, ['lint']);
   gulp.watch(paths.styles, ['styles']);
 });
