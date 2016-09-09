@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { Address, Restaurant } = require('../db')
+const { Address, Employee, Restaurant } = require('../db')
 const util = require('./util')
 const segment = util.segmentBody('restaurant')
 
@@ -37,8 +37,19 @@ function getOneRestaurantRoute (req, res, next) {
   .then(Restaurant.getAddresses)
   .then(Restaurant.getReviews)
   .then(Restaurant.getEmployees)
-  .then(Restaurant.getUsersFromEmployees)
   .then(Restaurant.getUsersFromReviews)
+  .then((restaurants) => {
+    let promises = restaurants[0].employees.map(employee => {
+      return Employee.get(employee.id)
+        .then(Employee.getUsers)
+        .then(employee => employee[0])
+    })
+
+    return Promise.all(promises).then(employees => {
+      restaurants[0].employees = employees
+      return restaurants
+    })
+  })
   .then((restaurants) => {
     let restaurant = restaurants[0]
     res.render('restaurants/show', { restaurant })
