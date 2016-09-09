@@ -1,30 +1,22 @@
-const Promise = require('bluebird')
-const knex = require('../connection')
-
-function get (id) {
-  let promise = knex('restaurants')
-
-  if (id) { promise = promise.where('id', id) }
-
-  return promise
-}
-
-function getAddresses (restaurants) {
-  var promises = restaurants.map(createAddressPromise)
-  return Promise.all(promises)
-}
+const util = require('./util')
 
 module.exports = {
-  get, getAddresses
-}
-
-// *** helper functions *** //
-
-function createAddressPromise (restaurant) {
-  return knex('addresses')
-    .where('id', restaurant.address_id)
-    .then((address) => {
-      restaurant.address = address[0]
-      return Promise.resolve(restaurant)
-    })
+  get: util.get('restaurants'),
+  create: util.create('restaurants'),
+  getAddresses: util.getResource({
+    table: 'addresses',
+    primary: { resource: 'restaurant', key: 'address_id' },
+    foreign: { resource: 'address', key: 'id' }
+  }),
+  getReviews: util.getResource({
+    table: 'reviews',
+    primary: { resource: 'restaurant', key: 'id' },
+    foreign: { resource: 'review', key: 'restaurant_id' }
+  }),
+  getUsersFromReviews: util.getJoin({
+    table: 'reviews',
+    paths: [
+      ['users', 'users.id', 'reviews.user_id']
+    ]
+  })
 }

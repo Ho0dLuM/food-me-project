@@ -1,3 +1,8 @@
+const knex = require('./connection')
+
 module.exports = {
-  Restaurant: require('./models/restaurant')
+  Address: require('./models/address'),
+  Restaurant: require('./models/restaurant'),
+  Review: require('./models/review'),
+  db: knex
 }
