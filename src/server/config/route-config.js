@@ -5,9 +5,11 @@
     // *** routes *** //
     const routes = require('../routes/index')
     const restaurants = require('../routes/restaurants')
+    const employees = require('../routes/employees')
 
     // *** register routes *** //
     app.use('/', routes)
     app.use('/restaurants', restaurants)
+    app.use('/restaurants/:restaurantId/employees', employees)
   }
 })(module.exports)

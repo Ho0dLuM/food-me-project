@@ -1,0 +1,31 @@
+{% include "../../partials/_errors.njk" %}
+
+<form action="/restaurants/{{ employee.restaurant_id }}/employees/{% if employee.id %}{{ employee.id }}?_method=PUT{% endif %}" method="POST">
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-4">
+        <label for="user_first_name">Preferred Name</label>
+        <input type="text" class="form-control" name="user[preferred_name]" id="user_preferred_name" value="{{user.preferred_name}}">
+      </div>
+      <div class="col-md-4">
+        <label for="user_last_name">Last Name</label>
+        <input type="text" class="form-control" name="user[last_name]" id="user_last_name" value="{{user.last_name}}">
+      </div>
+      <div class="col-md-4">
+        <label for="role">Role / Position</label>
+        <input type="text" class="form-control" name="role" id="role" value="{{employee.role}}">
+      </div>
+    </div>
+  </div>
+
+  {% if employee.id %}
+    <input type="hidden" name="id" value="{{ employee.id }}">
+  {% endif %}
+
+  {% if user.id %}
+    <input type="hidden" name="user[id]" value="{{ user.id }}">
+  {% endif %}
+
+  <input type="hidden" name="restaurant_id" value="{{ employee.restaurant_id }}">
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
