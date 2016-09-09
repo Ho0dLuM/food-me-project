@@ -3,20 +3,30 @@ const router = express.Router()
 const { Address, Restaurant } = require('../db')
 const util = require('./util')
 
-router.get('/', (req, res, next) => {
+router.get('/', getAllRestaurantsRoute)
+router.get('/new', newRestaurantRoute)
+router.get('/:id', getOneRestaurantRoute)
+router.get('/:id/edit', editRestaurantRoute)
+router.post('/',
+  util.segmentBody('restaurant'),
+  Restaurant.validate,
+  Address.validate,
+  createRestaurantRoute)
+
+// ------------------------------------- //
+
+function getAllRestaurantsRoute (req, res, next) {
   Restaurant.get()
   .then(Restaurant.getAddresses)
-  .then((restaurants) => {
-    res.render('restaurants/index', { restaurants })
-  })
+  .then((restaurants) => res.render('restaurants/index', { restaurants }))
   .catch(util.catchError)
-})
+}
 
-router.get('/new', (req, res, next) => {
+function newRestaurantRoute (req, res, next) {
   res.render('restaurants/new', { restaurant: {}, address: {} })
-})
+}
 
-router.get('/:id', (req, res, next) => {
+function getOneRestaurantRoute (req, res, next) {
   Restaurant.get(req.params.id)
   .then(Restaurant.getAddresses)
   .then(Restaurant.getReviews)
@@ -26,18 +36,18 @@ router.get('/:id', (req, res, next) => {
     res.render('restaurants/show', { restaurant })
   })
   .catch(util.catchError)
-})
+}
 
-router.get('/:id/edit', (req, res, next) => {
+function editRestaurantRoute (req, res, next) {
   Restaurant.get(req.params.id)
   .then(Restaurant.getAddresses)
   .then((restaurants) => {
     let restaurant = restaurants[0]
     res.render('restaurants/edit', { restaurant })
   })
-})
+}
 
-router.post('/', util.segmentBody('restaurant'), Restaurant.validate, Address.validate, (req, res, next) => {
+function createRestaurantRoute (req, res, next) {
   if (req.body.errors) {
     let { address, errors, restaurant } = req.body
     res.render('restaurants/new', { errors, restaurant, address })
@@ -45,15 +55,14 @@ router.post('/', util.segmentBody('restaurant'), Restaurant.validate, Address.va
     Address.create(req.body.address)
     .then(address => {
       req.body.restaurant.address_id = address[0].id
-      return Restaurant.create(req.body.restaurant)
-        .then(restaurant => {
-          restaurant[0].address = address
-          return restaurant[0]
-        })
+      return Restaurant.create(req.body.restaurant).then(restaurant => {
+        restaurant[0].address = address
+        return restaurant[0]
+      })
     })
     .then(restaurant => res.json(restaurant))
     .catch(util.catchError(next))
   }
-})
+}
 
 module.exports = router
