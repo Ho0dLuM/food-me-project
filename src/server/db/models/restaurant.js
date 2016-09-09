@@ -18,5 +18,28 @@ module.exports = {
     paths: [
       ['users', 'users.id', 'reviews.user_id']
     ]
-  })
+  }),
+  validate: function (req, res, next) {
+    let errors = []
+    if (!req.body.restaurant) {
+      errors.push('Missing restaurant information.')
+    } else {
+      if (!req.body.restaurant.name) {
+        errors.push('Restaurant name field is required.')
+      }
+      if (!req.body.restaurant.cuisine_type) {
+        errors.push('Restaurant name field is required.')
+      }
+    }
+
+    if (errors.length) {
+      if (req.body.errors) {
+        req.body.errors = req.body.errors.concat(errors)
+      } else {
+        req.body.errors = errors
+      }
+    }
+
+    next()
+  }
 }
