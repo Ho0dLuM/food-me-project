@@ -26,6 +26,23 @@ function update (table) {
   }
 }
 
+function validate (callback) {
+  return (req, res, next) => {
+    let errors = []
+    callback(errors, req.body)
+
+    if (errors.length) {
+      if (req.body.errors) {
+        req.body.errors = req.body.errors.concat(errors)
+      } else {
+        req.body.errors = errors
+      }
+    }
+
+    next()
+  }
+}
+
 /***
   the getResource() function takes a number of option arguments to create a link between the primary resource and a secondary resource. It essentially joins the two records together by stating which ids should be matching but does so without re-querying the original set of data.
 
@@ -121,4 +138,6 @@ function compose (primaries, relationName, primaryName, secondaryName) {
   }
 }
 
-module.exports = { get, create, update, getResource, getJoin, compose }
+module.exports = {
+  get, create, update, validate, getResource, getJoin, compose
+}
