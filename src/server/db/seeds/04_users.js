@@ -20,6 +20,32 @@ exports.seed = function (knex, Promise) {
         preferred_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         account_id: accounts[2].id
+      }),
+
+      // Users who are employees
+      knex('users').insert({
+        preferred_name: faker.name.firstName(),
+        last_name: faker.name.lastName()
+      }),
+      knex('users').insert({
+        preferred_name: faker.name.firstName(),
+        last_name: faker.name.lastName()
+      }),
+      knex('users').insert({
+        preferred_name: faker.name.firstName(),
+        last_name: faker.name.lastName()
+      }),
+      knex('users').insert({
+        preferred_name: faker.name.firstName(),
+        last_name: faker.name.lastName()
+      }),
+      knex('users').insert({
+        preferred_name: faker.name.firstName(),
+        last_name: faker.name.lastName()
+      }),
+      knex('users').insert({
+        preferred_name: faker.name.firstName(),
+        last_name: faker.name.lastName()
       })
     ])
   })
