@@ -59,6 +59,7 @@ footer {
 
 .search-bar {
   background: #2D2D2D;
+  overflow: hidden;
   padding: 5vh 0; }
   .search-bar .form-group {
     margin: 0; }
