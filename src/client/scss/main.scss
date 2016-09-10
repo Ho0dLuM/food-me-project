@@ -4,6 +4,7 @@
 
 
 html {
+  color: $black;
   font-size: 16px;
 }
 
@@ -27,18 +28,33 @@ html {
     text-decoration: none;
 
     &:hover {
-      color: $bright-blue;
+      color: $primary;
       text-decoration: none;
     }
   }
 
   h4 {
-    color: $med-blue;
     font-size: 1rem;
     font-weight: 900;
   }
 
   img {
     width: 100%;
+  }
+
+  .rating {
+    i {
+      color: $primary;
+    }
+  }
+
+  .no-rating {
+    background: $warning;
+    font-size: 0.8rem;
+    padding: 1rem;
+
+    i {
+      margin-right: 0.5rem;
+    }
   }
 }

@@ -16,6 +16,7 @@
             <h3>{{ restaurant.name }}</h3>
           </a>
           <h4>{{ restaurant.addresses[0].city }}, {{ restaurant.addresses[0].state }}</h4>
+          <p>{% include './partials/_rating.njk' %}</p>
           <p>{{ restaurant.description }}</p>
         </div>
       {% if loop.index % 3 == 0 %}</div>{% endif %}
