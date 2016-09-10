@@ -4,8 +4,53 @@
 
 {% block content %}
 
-  <div class="container">
-    <h1>{{title}}</h1>
+  <div class="hero fluid-container">
+    <div class="title">
+      <a href="/restaurants">
+        <h1 class="script">Food.me</h1>
+        <h2>Eat. More. Food.</h2>
+      </a>
+    </div>
   </div>
+
+  <div class="search-bar container-fluid">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <form>
+          <div class="row">
+            <div class="col-xs-9">
+              <div class="form-group">
+                <input type="text" class="form-control" id="search" placeholder="Find the best restaurants...">
+              </div>
+            </div>
+            <div class="col-xs-3">
+              <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="featured container">
+    <h2>Featured Restaurant</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <img src="/images/restaurants/asian1.jpg" alt="restaurant" />
+      </div>
+      <div class="col-md-6">
+        <div class="review" id="review">
+          <h3>Yum Yum Thai</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <span>- Steve Someone</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      Copyright Food.me 2016
+    </p>
+  </footer>
 
 {% endblock %}

@@ -1,8 +1,77 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+@import 'https://fonts.googleapis.com/css?family=Kaushan+Script';
+html {
+  font-size: 16px; }
 
-a {
-  color: #00B7FF;
-}
+.script {
+  font-family: "Kaushan Script", cursive; }
+
+.hero {
+  background-image: url(../images/bg/chef-board.jpeg);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: 100%;
+  color: #E8F1F2;
+  display: flex;
+  flex-direction: row;
+  height: 80vh;
+  padding: 5rem; }
+  .hero .title {
+    align-self: center;
+    flex: 1; }
+  .hero a:hover, .hero a:active, .hero a:visited {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none; }
+  .hero h1, .hero h2 {
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center; }
+  .hero h1 {
+    font-size: 10rem; }
+
+.search-bar {
+  background: #2D2D2D;
+  padding: 5vh 0; }
+  .search-bar .form-group {
+    margin: 0; }
+
+.featured {
+  display: flex;
+  flex-direction: column; }
+  .featured h2 {
+    font-size: 2rem;
+    margin: 3rem 0;
+    text-align: center; }
+  .featured img {
+    border-radius: 0.5rem;
+    width: 100%; }
+
+.review {
+  color: #2D2D2D;
+  margin-top: 3rem;
+  padding-left: 1rem;
+  position: relative; }
+  .review h3 {
+    color: #2D2D2D;
+    font-family: "Kaushan Script", cursive;
+    font-size: 5rem;
+    opacity: 0.15;
+    margin: 0;
+    position: absolute;
+    top: calc(25% - 1rem); }
+  .review p {
+    font-size: 1.2rem;
+    font-weight: 100;
+    line-height: 2rem;
+    margin: 0; }
+  .review span {
+    color: #006494;
+    display: block;
+    font-weight: bolder;
+    font-style: italic; }
+
+footer {
+  background: #2D2D2D;
+  margin-top: 5rem; }
+  footer p {
+    color: #E8F1F2;
+    margin: 0;
+    padding: 1rem; }
