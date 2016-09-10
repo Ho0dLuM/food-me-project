@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { Address, Employee, Restaurant } = require('../db')
+const { cuisines } = require('../config/constants')
 const util = require('./util')
 const segment = util.segmentBody('restaurant')
 
@@ -23,17 +24,19 @@ router.put('/:id',
 
 function getAllRestaurantsRoute (req, res, next) {
   Restaurant.get()
+  .then(Restaurant.addCuisineName)
   .then(Restaurant.getAddresses)
   .then((restaurants) => res.render('restaurants/index', { restaurants }))
   .catch(util.catchError)
 }
 
 function newRestaurantRoute (req, res, next) {
-  res.render('restaurants/new', { restaurant: {}, address: {} })
+  res.render('restaurants/new', { restaurant: {}, address: {}, cuisines })
 }
 
 function getOneRestaurantRoute (req, res, next) {
   Restaurant.get(req.params.id)
+  .then(Restaurant.addCuisineName)
   .then(Restaurant.getAddresses)
   .then(Restaurant.getReviews)
   .then(Restaurant.getEmployees)
@@ -63,14 +66,14 @@ function editRestaurantRoute (req, res, next) {
   .then((restaurants) => {
     let restaurant = restaurants[0]
     let address = restaurant.addresses[0]
-    res.render('restaurants/edit', { restaurant, address })
+    res.render('restaurants/edit', { restaurant, address, cuisines })
   })
 }
 
 function createRestaurantRoute (req, res, next) {
   if (req.body.errors) {
     let { address, errors, restaurant } = req.body
-    res.render('restaurants/new', { errors, restaurant, address })
+    res.render('restaurants/new', { errors, restaurant, address, cuisines })
   } else {
     Address.create(req.body.address)
     .then(address => {
@@ -85,7 +88,7 @@ function createRestaurantRoute (req, res, next) {
 function updateRestaurantRoute (req, res, next) {
   if (req.body.errors) {
     let { address, errors, restaurant } = req.body
-    res.render('restaurants/edit', { errors, restaurant, address })
+    res.render('restaurants/edit', { errors, restaurant, address, cuisines })
   } else {
     Address.update(req.body.address)
     .then(address => Restaurant.update(req.body.restaurant))

@@ -1,4 +1,6 @@
+const Promise = require('bluebird')
 const util = require('./util')
+const { cuisines } = require('../../config/constants')
 
 module.exports = {
   get: util.get('restaurants'),
@@ -25,6 +27,14 @@ module.exports = {
       ['users', 'users.id', 'reviews.user_id']
     ]
   }),
+  addCuisineName: (restaurants) => {
+    let updated = restaurants.map(restaurant => {
+      restaurant.cuisine = cuisines[restaurant.cuisine_type]
+      return restaurant
+    })
+
+    return Promise.resolve(updated)
+  },
   validate: util.validate((errors, body) => {
     if (!body.restaurant) {
       errors.push('Missing restaurant information.')

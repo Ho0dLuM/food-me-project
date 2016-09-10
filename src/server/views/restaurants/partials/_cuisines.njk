@@ -1,4 +1,3 @@
-{% set cuisines = [ 'american', 'italian', 'mexican', 'thai' ] %}
 {% for cuisine in cuisines %}
   <option value="{{ loop.index - 1 }}"
     {% if restaurant.cuisine_type + 1 == loop.index %}
