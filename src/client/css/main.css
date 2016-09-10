@@ -1,9 +1,39 @@
 @import 'https://fonts.googleapis.com/css?family=Kaushan+Script';
-html {
-  font-size: 16px; }
+nav {
+  background: #2D2D2D;
+  margin-bottom: 2rem; }
+  nav .nav-wrapper {
+    display: flex; }
+  nav h2 {
+    color: #E8F1F2;
+    font-family: "Kaushan Script", cursive;
+    flex: 2;
+    margin: 0;
+    padding: 1rem; }
+    nav h2 a, nav h2 a:visited, nav h2 a:active, nav h2 a:hover {
+      color: #E8F1F2;
+      text-decoration: none; }
+  nav ul {
+    align-self: flex-end;
+    margin: 0;
+    flex: 1; }
+  nav li {
+    display: inline-block;
+    padding: 1rem;
+    text-align: center; }
+    nav li a, nav li a:visited, nav li a:active {
+      color: #E8F1F2; }
+      nav li a:hover, nav li a:visited:hover, nav li a:active:hover {
+        color: #1B98E0;
+        text-decoration: none; }
 
-.script {
-  font-family: "Kaushan Script", cursive; }
+footer {
+  background: #2D2D2D;
+  margin-top: 5rem; }
+  footer p {
+    color: #E8F1F2;
+    margin: 0;
+    padding: 1rem; }
 
 .hero {
   background-image: url(../images/bg/chef-board.jpeg);
@@ -33,23 +63,31 @@ html {
   .search-bar .form-group {
     margin: 0; }
 
-.featured h2 {
+html {
+  font-size: 16px; }
+
+.script {
+  font-family: "Kaushan Script", cursive; }
+
+.restaurants .row {
+  margin-bottom: 2rem; }
+
+.restaurants h2 {
   font-size: 2rem;
   margin: 3rem 0;
   text-align: center; }
 
-.featured h4 {
+.restaurants a {
+  color: #2D2D2D;
+  text-decoration: none; }
+  .restaurants a:hover {
+    color: #1B98E0;
+    text-decoration: none; }
+
+.restaurants h4 {
   color: #006494;
   font-size: 1rem;
   font-weight: 900; }
 
-.featured img {
+.restaurants img {
   width: 100%; }
-
-footer {
-  background: #2D2D2D;
-  margin-top: 5rem; }
-  footer p {
-    color: #E8F1F2;
-    margin: 0;
-    padding: 1rem; }

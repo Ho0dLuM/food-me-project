@@ -1,4 +1,7 @@
 @import './variables';
+@import './nav_and_footer';
+@import './home';
+
 
 html {
   font-size: 16px;
@@ -8,51 +11,25 @@ html {
   font-family: $kaushan;
 }
 
-.hero {
-  background-image: url(../images/bg/chef-board.jpeg);
-  background-repeat: no-repeat;
-  background-position: 50%;
-  background-size: 100%;
-  color: $off-white;
-  display: flex;
-  flex-direction: row;
-  height: 80vh;
-  padding: 5rem;
-
-  .title {
-    align-self: center;
-    flex: 1;
+.restaurants {
+  .row {
+    margin-bottom: 2rem;
   }
 
-  a:hover, a:active, a:visited {
-    color: rgba(255,255,255,0.85);
-    text-decoration: none;
-  }
-
-  h1, h2 {
-    color: rgba(255,255,255,0.85);
-    text-align: center;
-  }
-
-  h1 {
-    font-size: 10rem;
-  }
-}
-
-.search-bar {
-  background: $black;
-  padding: 5vh 0;
-
-  .form-group {
-    margin: 0;
-  }
-}
-
-.featured {
   h2 {
     font-size: 2rem;
     margin: 3rem 0;
     text-align: center;
+  }
+
+  a {
+    color: $black;
+    text-decoration: none;
+
+    &:hover {
+      color: $bright-blue;
+      text-decoration: none;
+    }
   }
 
   h4 {
@@ -63,16 +40,5 @@ html {
 
   img {
     width: 100%;
-  }
-}
-
-footer {
-  background: $black;
-  margin-top: 5rem;
-
-  p {
-    color: $off-white;
-    margin: 0;
-    padding: 1rem;
   }
 }
