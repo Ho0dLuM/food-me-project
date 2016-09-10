@@ -1,7 +1,6 @@
 // CUISINE_TYPES = [ 'american', 'italian', 'mexican', 'thai' ]
 'use strict'
 
-const _ = require('lodash')
 const faker = require('faker')
 
 exports.seed = function (knex, Promise) {
