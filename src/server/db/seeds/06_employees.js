@@ -1,55 +1,34 @@
 'use strict'
 
+const faker = require('faker')
+
+function employeePromise (knex, restaurant, user) {
+  let role = faker.random.number(1000) > 800 ? 'Manager' : 'Waiter / Waitress'
+  let employee = {
+    role: role,
+    restaurant_id: restaurant.id
+  }
+
+  if (user) employee.user_id = user.id
+
+  return knex('employees').insert(employee)
+}
+
 exports.seed = function (knex, Promise) {
-  return Promise.all([knex('restaurants'), knex('users')]).then(data => {
-    let [restaurants, users] = data
-    return Promise.all([
-      // Inserts seed entries
-      knex('employees').insert({
-        role: 'Manager',
-        restaurant_id: restaurants[0].id,
-        user_id: users[3].id
-      }),
-      knex('employees').insert({
-        role: 'Waiter / Waitress',
-        restaurant_id: restaurants[0].id,
-        user_id: users[4].id
-      }),
-      knex('employees').insert({
-        role: 'Manager',
-        restaurant_id: restaurants[1].id,
-        user_id: users[5].id
-      }),
-      knex('employees').insert({
-        role: 'Waiter / Waitress',
-        restaurant_id: restaurants[1].id,
-        user_id: users[6].id
-      }),
-      knex('employees').insert({
-        role: 'Waiter / Waitress',
-        restaurant_id: restaurants[1].id,
-        user_id: users[7].id
-      }),
-      knex('employees').insert({
-        role: 'Waiter / Waitress',
-        restaurant_id: restaurants[2].id,
-        user_id: users[8].id
-      }),
-      knex('employees').insert({
-        role: 'Manager',
-        restaurant_id: restaurants[2].id,
-        user_id: users[9].id
-      }),
-      knex('employees').insert({
-        role: 'Waiter / Waitress',
-        restaurant_id: restaurants[3].id,
-        user_id: users[1].id
-      }),
-      knex('employees').insert({
-        role: 'Manager',
-        restaurant_id: restaurants[3].id,
-        user_id: users[2].id
+  return Promise.all([
+    knex('restaurants'),
+    knex('users')
+  ])
+  .then(([restaurants, users]) => {
+    let promises = Array.from(Array(users.length + 50))
+      .map((el, i) => {
+        let rRand = faker.random.number(restaurants.length - 1)
+        let restaurant = restaurants[rRand]
+
+        let user = users[i]
+        return employeePromise(knex, restaurant, user)
       })
-    ])
+
+    return Promise.all(promises)
   })
 }

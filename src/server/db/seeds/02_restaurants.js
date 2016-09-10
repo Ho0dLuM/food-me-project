@@ -1,42 +1,25 @@
-// CUISINE_TYPES = [ 'american', 'italian', 'mexican', 'thai' ]
 'use strict'
 
+const { cuisines } = require('../../config/constants')
 const faker = require('faker')
+
+function restaurantPromise (knex, address) {
+  return knex('restaurants').insert({
+    name: `${faker.name.firstName()}'s`,
+    description: faker.lorem.paragraph(),
+    cuisine_type: faker.random.number(cuisines.length - 1),
+    address_id: address.id
+  })
+}
 
 exports.seed = function (knex, Promise) {
   return knex('addresses').then(addresses => {
-    return Promise.all([
-      // Inserts seed entries
-      knex('restaurants').insert({
-        name: `${faker.name.firstName()}'s`,
-        description: faker.lorem.paragraph(),
-        cuisine_type: faker.random.number(2),
-        address_id: addresses[0].id
-      }),
-      knex('restaurants').insert({
-        name: `${faker.name.firstName()}'s`,
-        description: faker.lorem.paragraph(),
-        cuisine_type: faker.random.number(2),
-        address_id: addresses[1].id
-      }),
-      knex('restaurants').insert({
-        name: `${faker.name.firstName()}'s`,
-        description: faker.lorem.paragraph(),
-        cuisine_type: faker.random.number(2),
-        address_id: addresses[2].id
-      }),
-      knex('restaurants').insert({
-        name: `${faker.name.firstName()}'s`,
-        description: faker.lorem.paragraph(),
-        cuisine_type: faker.random.number(2),
-        address_id: addresses[3].id
-      }),
-      knex('restaurants').insert({
-        name: `${faker.name.firstName()}'s`,
-        description: faker.lorem.paragraph(),
-        cuisine_type: faker.random.number(2),
-        address_id: addresses[3].id
+    let promises = Array.from(Array(addresses.length - 1))
+      .map((el, i) => {
+        let address = addresses[i]
+        return restaurantPromise(knex, address)
       })
-    ])
+
+    return Promise.all(promises)
   })
 }

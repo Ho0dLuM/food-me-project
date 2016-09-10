@@ -2,23 +2,19 @@
 
 const faker = require('faker')
 
+function accountPromise (knex) {
+  let email = faker.internet.email()
+  let split = email.split('@')
+  split[0] = split[0] + `.${faker.finance.mask()}`
+  let uniqueEmail = split.join('@')
+  return knex('accounts').insert({
+    email: uniqueEmail,
+    password: faker.internet.password(14),
+    admin: false
+  })
+}
+
 exports.seed = function (knex, Promise) {
-  return Promise.all([
-    // Inserts seed entries
-    knex('accounts').insert({
-      email: faker.internet.email(),
-      password: faker.internet.password(10),
-      admin: true
-    }),
-    knex('accounts').insert({
-      email: faker.internet.email(),
-      password: faker.internet.password(10),
-      admin: false
-    }),
-    knex('accounts').insert({
-      email: faker.internet.email(),
-      password: faker.internet.password(10),
-      admin: false
-    })
-  ])
+  let promises = Array.from(Array(150)).map(() => accountPromise(knex))
+  return Promise.all(promises)
 }

@@ -2,55 +2,22 @@
 
 const faker = require('faker')
 
+function userPromise (knex, account) {
+  return knex('users').insert({
+    preferred_name: faker.name.firstName(),
+    last_name: faker.name.lastName(),
+    account_id: account.id
+  })
+}
+
 exports.seed = function (knex, Promise) {
   return knex('accounts').then(accounts => {
-    return Promise.all([
-      // Inserts seed entries
-      knex('users').insert({
-        preferred_name: faker.name.firstName(),
-        last_name: faker.name.lastName(),
-        account_id: accounts[0].id
-      }),
-      knex('users').insert({
-        preferred_name: faker.name.firstName(),
-        last_name: faker.name.lastName(),
-        account_id: accounts[1].id
-      }),
-      knex('users').insert({
-        preferred_name: faker.name.firstName(),
-        last_name: faker.name.lastName(),
-        account_id: accounts[2].id
-      }),
-
-      // Users who are employees
-      knex('users').insert({
-        preferred_name: faker.name.firstName(),
-        last_name: faker.name.lastName()
-      }),
-      knex('users').insert({
-        preferred_name: faker.name.firstName(),
-        last_name: faker.name.lastName()
-      }),
-      knex('users').insert({
-        preferred_name: faker.name.firstName(),
-        last_name: faker.name.lastName()
-      }),
-      knex('users').insert({
-        preferred_name: faker.name.firstName(),
-        last_name: faker.name.lastName()
-      }),
-      knex('users').insert({
-        preferred_name: faker.name.firstName(),
-        last_name: faker.name.lastName()
-      }),
-      knex('users').insert({
-        preferred_name: faker.name.firstName(),
-        last_name: faker.name.lastName()
-      }),
-      knex('users').insert({
-        preferred_name: faker.name.firstName(),
-        last_name: faker.name.lastName()
+    let promises = Array.from(Array(accounts.length - 1))
+      .map((el, i) => {
+        let account = accounts[i]
+        return userPromise(knex, account)
       })
-    ])
+
+    return Promise.all(promises)
   })
 }
