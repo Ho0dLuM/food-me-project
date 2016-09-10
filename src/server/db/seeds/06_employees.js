@@ -38,7 +38,17 @@ exports.seed = function (knex, Promise) {
       knex('employees').insert({
         role: 'Manager',
         restaurant_id: restaurants[2].id,
+        user_id: users[9].id
+      }),
+      knex('employees').insert({
+        role: 'Waiter / Waitress',
+        restaurant_id: restaurants[3].id,
         user_id: users[1].id
+      }),
+      knex('employees').insert({
+        role: 'Manager',
+        restaurant_id: restaurants[3].id,
+        user_id: users[2].id
       })
     ])
   })

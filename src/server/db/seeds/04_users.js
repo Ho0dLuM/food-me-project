@@ -46,6 +46,10 @@ exports.seed = function (knex, Promise) {
       knex('users').insert({
         preferred_name: faker.name.firstName(),
         last_name: faker.name.lastName()
+      }),
+      knex('users').insert({
+        preferred_name: faker.name.firstName(),
+        last_name: faker.name.lastName()
       })
     ])
   })

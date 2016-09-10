@@ -9,22 +9,34 @@ exports.seed = function (knex, Promise) {
     return Promise.all([
       // Inserts seed entries
       knex('restaurants').insert({
-        name: `The ${_.capitalize(faker.company.bsAdjective())} Restaurant`,
+        name: `${faker.name.firstName()}'s`,
         description: faker.lorem.paragraph(),
         cuisine_type: faker.random.number(2),
         address_id: addresses[0].id
       }),
       knex('restaurants').insert({
-        name: `The ${_.capitalize(faker.company.bsAdjective())} Restaurant`,
+        name: `${faker.name.firstName()}'s`,
         description: faker.lorem.paragraph(),
         cuisine_type: faker.random.number(2),
         address_id: addresses[1].id
       }),
       knex('restaurants').insert({
-        name: `The ${_.capitalize(faker.company.bsAdjective())} Restaurant`,
+        name: `${faker.name.firstName()}'s`,
         description: faker.lorem.paragraph(),
         cuisine_type: faker.random.number(2),
         address_id: addresses[2].id
+      }),
+      knex('restaurants').insert({
+        name: `${faker.name.firstName()}'s`,
+        description: faker.lorem.paragraph(),
+        cuisine_type: faker.random.number(2),
+        address_id: addresses[3].id
+      }),
+      knex('restaurants').insert({
+        name: `${faker.name.firstName()}'s`,
+        description: faker.lorem.paragraph(),
+        cuisine_type: faker.random.number(2),
+        address_id: addresses[3].id
       })
     ])
   })
