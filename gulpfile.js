@@ -8,6 +8,7 @@ const nodemon = require('gulp-nodemon');
 const plumber = require('gulp-plumber');
 const notify = require('gulp-notify');
 const server = require('tiny-lr')();
+const sass = require('gulp-sass');
 
 // *** config *** //
 
@@ -16,8 +17,11 @@ const paths = {
     path.join('src', '**', '*.js'),
     path.join('src', '*.js')
   ],
-  styles: [
+  css: [
     path.join('src', 'client', 'css', '*.css')
+  ],
+  scss: [
+    path.join('src', 'client', 'scss', '*.scss')
   ],
   views: [
     path.join('src', 'server', '**', '*.njk'),
@@ -30,7 +34,7 @@ const lrPort = 35729;
 
 const nodemonConfig = {
   script: paths.server,
-  ext: 'html njk js css',
+  ext: 'html njk js css scss',
   ignore: ['node_modules'],
   env: {
     NODE_ENV: 'development'
@@ -44,11 +48,18 @@ gulp.task('default', () => {
     ['lint'],
     ['lr'],
     ['nodemon'],
+    ['scss'],
     ['watch']
   );
 });
 
 // *** sub tasks ** //
+
+gulp.task('scss', () => {
+  return gulp.src(paths.scss)
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest(path.join('src', 'client', 'css')));
+});
 
 gulp.task('lint', () => {
   return gulp.src(paths.scripts)
@@ -58,7 +69,7 @@ gulp.task('lint', () => {
 });
 
 gulp.task('styles', () => {
-  return gulp.src(paths.styles)
+  return gulp.src(paths.css)
     .pipe(plumber());
 });
 
@@ -81,6 +92,7 @@ gulp.task('nodemon', () => {
 
 gulp.task('watch', () => {
   gulp.watch(paths.views, ['views']);
+  gulp.watch(paths.scss, ['scss']);
   gulp.watch(paths.scripts, ['lint']);
-  gulp.watch(paths.styles, ['styles']);
+  gulp.watch(paths.css, ['styles']);
 });
