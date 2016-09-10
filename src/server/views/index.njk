@@ -32,25 +32,21 @@
     </div>
   </div>
 
-  <div class="featured container">
+  <div class="restaurants container">
     <h2>Featured Restaurants</h2>
     <div class="row">
       {% for restaurant in restaurants %}
         <div class="col-md-4">
-          <img src="/images/restaurants/{{ restaurant.cuisine }}.jpg"
-            alt="Image from {{ restaurant.name }}" />
-          <h3>{{ restaurant.name }}</h3>
+          <a href="/restaurants/{{ restaurant.id }}">
+            <img src="/images/restaurants/{{ restaurant.cuisine }}.jpg"
+              alt="Image from {{ restaurant.name }}" />
+            <h3>{{ restaurant.name }}</h3>
+          </a>
           <h4>{{ restaurant.addresses[0].city }}, {{ restaurant.addresses[0].state }}</h4>
           <p>{{ restaurant.description }}</p>
         </div>
       {% endfor %}
     </div>
   </div>
-
-  <footer>
-    <p>
-      Copyright Food.me 2016
-    </p>
-  </footer>
 
 {% endblock %}

@@ -4,9 +4,22 @@
 
 {% block content %}
 
-  <div class="container">
+  {% include '../partials/_nav.njk' %}
+
+  <div class="restaurants container">
     {% for restaurant in restaurants %}
-      <p>{{ restaurant | dump }}</p>
+      {% if loop.index % 3 == 1 %}<div class="row">{% endif %}
+        <div class="col-md-4">
+          <a href="/restaurants/{{ restaurant.id }}">
+            <img src="/images/restaurants/{{ restaurant.cuisine }}.jpg"
+              alt="Image from {{ restaurant.name }}" />
+            <h3>{{ restaurant.name }}</h3>
+          </a>
+          <h4>{{ restaurant.addresses[0].city }}, {{ restaurant.addresses[0].state }}</h4>
+          <p>{{ restaurant.description }}</p>
+        </div>
+      {% if loop.index % 3 == 0 %}</div>{% endif %}
+      {% if loop.index == restaurants.length %}</div>{% endif %}
     {% endfor %}
   </div>
 
