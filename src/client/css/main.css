@@ -33,40 +33,18 @@ html {
   .search-bar .form-group {
     margin: 0; }
 
-.featured {
-  display: flex;
-  flex-direction: column; }
-  .featured h2 {
-    font-size: 2rem;
-    margin: 3rem 0;
-    text-align: center; }
-  .featured img {
-    border-radius: 0.5rem;
-    width: 100%; }
+.featured h2 {
+  font-size: 2rem;
+  margin: 3rem 0;
+  text-align: center; }
 
-.review {
-  color: #2D2D2D;
-  margin-top: 3rem;
-  padding-left: 1rem;
-  position: relative; }
-  .review h3 {
-    color: #2D2D2D;
-    font-family: "Kaushan Script", cursive;
-    font-size: 5rem;
-    opacity: 0.15;
-    margin: 0;
-    position: absolute;
-    top: calc(25% - 1rem); }
-  .review p {
-    font-size: 1.2rem;
-    font-weight: 100;
-    line-height: 2rem;
-    margin: 0; }
-  .review span {
-    color: #006494;
-    display: block;
-    font-weight: bolder;
-    font-style: italic; }
+.featured h4 {
+  color: #006494;
+  font-size: 1rem;
+  font-weight: 900; }
+
+.featured img {
+  width: 100%; }
 
 footer {
   background: #2D2D2D;

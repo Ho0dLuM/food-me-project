@@ -33,17 +33,17 @@
   </div>
 
   <div class="featured container">
-    <h2>Featured Restaurant</h2>
+    <h2>Featured Restaurants</h2>
     <div class="row">
-      <div class="col-md-6">
-        <img src="/images/restaurants/asian1.jpg" alt="restaurant" />
-      </div>
-      <div class="col-md-6">
-        <div class="review" id="review">
-          <h3>Yum Yum Thai</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <span>- Steve Someone</span></p>
+      {% for restaurant in restaurants %}
+        <div class="col-md-4">
+          <img src="/images/restaurants/{{ restaurant.cuisine }}.jpg"
+            alt="Image from {{ restaurant.name }}" />
+          <h3>{{ restaurant.name }}</h3>
+          <h4>{{ restaurant.addresses[0].city }}, {{ restaurant.addresses[0].state }}</h4>
+          <p>{{ restaurant.description }}</p>
         </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 

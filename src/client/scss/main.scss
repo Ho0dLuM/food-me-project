@@ -49,49 +49,20 @@ html {
 }
 
 .featured {
-  display: flex;
-  flex-direction: column;
-
   h2 {
     font-size: 2rem;
     margin: 3rem 0;
     text-align: center;
   }
 
-  img {
-    border-radius: 0.5rem;
-    width: 100%;
-  }
-}
-
-.review {
-  color: $black;
-  margin-top: 3rem;
-  padding-left: 1rem;
-  position: relative;
-
-  h3 {
-    color: $black;
-    font-family: $kaushan;
-    font-size: 5rem;
-    opacity: 0.15;
-    margin: 0;
-    position: absolute;
-    top: calc(25% - 1rem);
-  }
-
-  p {
-    font-size: 1.2rem;
-    font-weight: 100;
-    line-height: 2rem;
-    margin: 0;
-  }
-
-  span {
+  h4 {
     color: $med-blue;
-    display: block;
-    font-weight: bolder;
-    font-style: italic;
+    font-size: 1rem;
+    font-weight: 900;
+  }
+
+  img {
+    width: 100%;
   }
 }
 
