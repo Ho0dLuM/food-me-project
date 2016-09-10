@@ -35,6 +35,28 @@ module.exports = {
 
     return Promise.resolve(updated)
   },
+  calculateRating: (restaurants) => {
+    let updated = restaurants.map(restaurant => {
+      let round = 100
+      let total = restaurant.reviews.reduce((acc, curr) => {
+        return acc + (curr.rating || 0)
+      }, 0)
+
+      if (!total) return restaurant
+
+      let average = total / restaurant.reviews.length
+      let formatted = Math.round(average * round) / round
+
+      restaurant.rating = {
+        average: formatted,
+        numOfReviews: restaurant.reviews.length
+      }
+
+      return restaurant
+    })
+
+    return Promise.resolve(updated)
+  },
   validate: util.validate((errors, body) => {
     if (!body.restaurant) {
       errors.push('Missing restaurant information.')

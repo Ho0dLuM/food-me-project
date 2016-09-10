@@ -26,6 +26,8 @@ function getAllRestaurantsRoute (req, res, next) {
   Restaurant.get()
   .then(Restaurant.addCuisineName)
   .then(Restaurant.getAddresses)
+  .then(Restaurant.getReviews)
+  .then(Restaurant.calculateRating)
   .then((restaurants) => res.render('restaurants/index', { restaurants }))
   .catch(util.catchError)
 }
@@ -39,6 +41,7 @@ function getOneRestaurantRoute (req, res, next) {
   .then(Restaurant.addCuisineName)
   .then(Restaurant.getAddresses)
   .then(Restaurant.getReviews)
+  .then(Restaurant.calculateRating)
   .then(Restaurant.getEmployees)
   .then(Restaurant.getUsersFromReviews)
   .then((restaurants) => {
