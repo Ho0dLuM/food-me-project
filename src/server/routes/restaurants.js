@@ -23,7 +23,7 @@ router.put('/:id',
 // ------------------------------------- //
 
 function getAllRestaurantsRoute (req, res, next) {
-  Restaurant.get()
+  Restaurant.get().orderBy('name', 'ASC')
   .then(Restaurant.addCuisineName)
   .then(Restaurant.getAddresses)
   .then(Restaurant.getReviews)
@@ -83,7 +83,7 @@ function createRestaurantRoute (req, res, next) {
       req.body.restaurant.address_id = address[0].id
       return Restaurant.create(req.body.restaurant)
     })
-    .then(restaurant => res.redirect('/restaurants'))
+    .then(restaurant => res.redirect(`/restaurants/${restaurant[0].id}`))
     .catch(util.catchError(next))
   }
 }
@@ -95,7 +95,7 @@ function updateRestaurantRoute (req, res, next) {
   } else {
     Address.update(req.body.address)
     .then(address => Restaurant.update(req.body.restaurant))
-    .then(restaurant => res.redirect('/restaurants'))
+    .then(restaurant => res.redirect(`/restaurants/${restaurant[0].id}`))
     .catch(util.catchError(next))
   }
 }
