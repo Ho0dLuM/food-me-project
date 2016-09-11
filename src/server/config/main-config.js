@@ -22,10 +22,11 @@
 
   appConfig.init = function (app, express) {
     // *** view engine *** //
-    nunjucks.configure(viewFolders, {
+    const nunjucksEnv = nunjucks.configure(viewFolders, {
       express: app,
       autoescape: true
     })
+    nunjucksEnv.addFilter('date', require('nunjucks-date-filter'))
     app.set('view engine', 'njk')
 
     // *** app middleware *** //
