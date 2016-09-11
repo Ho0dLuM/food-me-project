@@ -32,9 +32,8 @@
   }
 
   function deleteTable () {
-    $tbody = $(this).closest('tbody')
+    let $tbody = $(this).closest('tbody')
     $(this).closest('tr').remove()
-    console.log($tbody)
 
     if (!$tbody.children().length) $tbody.closest('.row').remove()
   }
