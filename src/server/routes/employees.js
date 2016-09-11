@@ -16,6 +16,7 @@ router.put('/:id',
   Employee.validate,
   User.validate,
   updateEmployeeRoute)
+router.delete('/:id', deleteEmployeeRoute)
 
 // ------------------------------------- //
 
@@ -61,6 +62,13 @@ function updateEmployeeRoute (req, res, next) {
     .then(employee => res.redirect(`/restaurants/${employee[0].restaurant_id}`))
     .catch(util.catchError(next))
   }
+}
+
+function deleteEmployeeRoute (req, res, next) {
+  Employee.get(req.params.id)
+  .then(([employee]) => Employee.del(employee.id))
+  .then(() => res.json({ message: `Employee deleted.` }))
+  .catch((err) => res.status(500).json({ err }))
 }
 
 module.exports = router
