@@ -1,0 +1,14 @@
+{% extends "../_base.njk" %}
+
+{% block title %}Edit Review{% endblock %}
+
+{% block content %}
+
+{% include '../partials/_nav.njk' %}
+
+  <div class="form-page container">
+    <h1>Editing Review for {{ restaurant.name }}</h1>
+    {% include "./partials/_form.njk" %}
+  </div>
+
+{% endblock %}

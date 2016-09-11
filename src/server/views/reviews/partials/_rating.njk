@@ -1,0 +1,31 @@
+<label for="rating">Rating:</label>
+<label class="radio-inline">
+  <input type="radio" name="rating" id="rating-radio-1" value="1"
+  {% if review.rating == 1 %}
+    checked="true"
+  {% endif %}> 1
+</label>
+<label class="radio-inline">
+  <input type="radio" name="rating" id="rating-radio-2" value="2"
+  {% if review.rating == 2 %}
+    checked="true"
+  {% endif %}> 2
+</label>
+<label class="radio-inline">
+  <input type="radio" name="rating" id="rating-radio-3" value="3"
+  {% if review.rating == 3 %}
+    checked="true"
+  {% endif %}> 3
+</label>
+<label class="radio-inline">
+  <input type="radio" name="rating" id="rating-radio-4" value="4"
+  {% if review.rating == 4 %}
+    checked="true"
+  {% endif %}> 4
+</label>
+<label class="radio-inline">
+  <input type="radio" name="rating" id="rating-radio-5" value="5"
+  {% if review.rating == 5 %}
+    checked="true"
+  {% endif %}> 5
+</label>
