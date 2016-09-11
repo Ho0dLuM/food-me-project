@@ -20,7 +20,8 @@ exports.seed = function (knex, Promise) {
     knex('users')
   ])
   .then(([restaurants, users]) => {
-    let promises = Array.from(Array(users.length + 50))
+    let count = Math.floor(users.length / 5)
+    let promises = Array.from(Array(count))
       .map((el, i) => {
         let rRand = faker.random.number(restaurants.length - 1)
         let restaurant = restaurants[rRand]
