@@ -67,6 +67,8 @@
           <span>{{ restaurant.rating.numOfReviews or 'No' }}</span> Reviews
         </h2>
 
+        <p class="new-review">Create a <a href="/restaurants/{{ restaurant.id }}/reviews/new">New Review</a> for this restaurant!</p>
+
         {% if not restaurant.rating %}
           <p class="no-rating"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> We don't have any reviews for this restaurant!</p>
         {% endif %}

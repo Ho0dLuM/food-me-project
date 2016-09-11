@@ -118,6 +118,10 @@ h2.reviews-title {
   h2.reviews-title span {
     font-weight: 900; }
 
+.new-review {
+  padding: 1rem;
+  text-align: center; }
+
 .review {
   margin-bottom: 1rem;
   padding: 1rem; }
