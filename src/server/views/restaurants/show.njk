@@ -18,6 +18,14 @@
         <p class="cuisine-type">
           <span>Cuisine Type:</span> {{ restaurant.cuisine | capitalize }}
         </p>
+        <div class="row">
+          <div class="col-md-4">
+            <a href="/restaurants/{{ restaurant.id }}/edit" class="btn btn-block btn-info">Edit</a>
+          </div>
+          <div class="col-md-4 col-md-offset-4">
+            <a href="#" class="btn btn-block btn-danger">Delete</a>
+          </div>
+        </div>
 
         {% if restaurant.employees.length > 0 %}
           <div class="employees row">
