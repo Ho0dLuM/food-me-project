@@ -1,0 +1,31 @@
+{% if restaurant.employees.length > 0 %}
+  <div class="employees row">
+    <div class="col-md-12">
+      <h2>Employees</h2>
+      <table class="table">
+        <thead>
+          <th>Name</th>
+          <th>Position</th>
+          <th></th>
+        </thead>
+        <tbody>
+          {% for employee in restaurant.employees | sort(false, false, 'role') %}
+            {% set user = employee.users[0] %}
+            <tr>
+              <td>
+                {{ user.preferred_name }} {{ user.last_name }}
+              </td>
+              <td>
+                {{ employee.role }}
+              </td>
+              <td>
+                <a href="/restaurants/{{ restaurant.id }}/employees/{{ employee.id }}/edit">Edit</a>
+                <a href="/restaurants/{{ restaurant.id }}/employees/{{ employee.id }}" data-delete-table="true" id="delete-employee">Delete</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endif %}

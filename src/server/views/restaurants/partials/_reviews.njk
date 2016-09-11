@@ -1,0 +1,26 @@
+{% for review in restaurant.reviews | sort(true, false, 'created_at') %}
+  {% set user = review.users[0] %}
+  <div class="review">
+    <p class="truncated">{{ review.content | truncate(150) }}</p>
+    <p class="full-content">{{ review.content }}</p>
+    <div class="row">
+      <div class="col-md-4">
+        {% set rating = review.rating %}
+        <p>{% include './_stars.njk' %}</p>
+      </div>
+      <div class="col-md-4">
+        <h5 class="date">{{ review.created_at | date('MMMM Do, YYYY') }}</h5>
+      </div>
+      <div class="col-md-4">
+        <h5 class="reviewer">{{ user.preferred_name }} {{ user.last_name[0] }}.</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          <a href="/restaurants/{{ restaurant.id }}/reviews/{{ review.id }}/edit">Edit Review</a>
+        </p>
+      </div>
+    </div>
+  </div>
+{% endfor %}
