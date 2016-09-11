@@ -72,44 +72,43 @@ function getResource ({ table, primary, foreign }) {
 }
 
 /***
-  the getJoin() function is intended to be used after the getResource() function. You pass the table name of the resources you just received and a set of paths that tell you where you'd like to innerJoin. The intention is to make it easier to grab a deep structure of subqueries and attach to what is necessary.
+  the getRelated function takes a primary resource with an existing association and nests data related to that association. That is, it creates a structure like the following:
 
-  It is intended to be used as so:
-
-  Restaurant = {
-    ...,
-    getUsersFromReviews: getJoin({
-      table: 'reviews',
-      paths: [
-        ['users', 'users.id', 'reviews.user_id']
+  {
+    primary: {
+      secondaries: [
+        {
+          secondary_name: '',
+          related: [
+            { related_name: '' }
+          ]
+        }
       ]
-    })
+    }
   }
+
+  It is intended be used as so:
 
   Restaurant.get()
     .then(Restaurant.getReviews())
-    .then(Restaurants.getUsersFromReviews())
-
-  >> [{ id: 1, name: 'Restaurant 1', reviews: [{ email: '', ...}]}]
-
-  Note: This means it will return a flat array of potential dupes if there are multiple relationships between the joined resources.
+    .then(Restaurant.getUsersThroughReviews)
 ***/
 
-function getJoin ({ table, paths }) {
+function getRelated ({ related, through }) {
   return (primaryResources) => {
-    let allResources = primaryResources.map(resource => resource[table])
-    let promises = allResources.map(resources => {
-      let ids = resources.map(resource => resource.id)
-      return paths.reduce((query, join) => {
-        let [joinTable, primary, foreign] = join
-        return query.innerJoin(joinTable, primary, foreign)
-      }, knex(table)).whereIn(`${table}.id`, ids)
+    let promises = primaryResources[0][through.table].map(throughResource => {
+      return knex(through.table).where('id', throughResource.id)
+        .first()
+        .then(resource => {
+          return knex(related.table).where(related.key, throughResource[through.key])
+        })
     })
 
-    return Promise.all(promises).then(resources => {
-      primaryResources.forEach((resource, i) => {
-        resource[table] = resources[i]
+    return Promise.all(promises).then(relatedResources => {
+      relatedResources.forEach((rows, i) => {
+        primaryResources[0][through.table][i][related.table] = rows
       })
+
       return Promise.resolve(primaryResources)
     })
   }
@@ -146,5 +145,5 @@ function compose (primaries, relationName, primaryName, secondaryName) {
 }
 
 module.exports = {
-  get, create, update, del, validate, getResource, getJoin, compose
+  get, create, update, del, validate, getResource, getRelated, compose
 }

@@ -22,11 +22,13 @@ module.exports = {
     primary: { resource: 'restaurant', key: 'id' },
     foreign: { resource: 'employee', key: 'restaurant_id' }
   }),
-  getUsersFromReviews: util.getJoin({
-    table: 'reviews',
-    paths: [
-      ['users', 'users.id', 'reviews.user_id']
-    ]
+  getUsersThroughReviews: util.getRelated({
+    through: { table: 'reviews', key: 'user_id' },
+    related: { table: 'users', key: 'id' }
+  }),
+  getUsersThroughEmployees: util.getRelated({
+    through: { table: 'employees', key: 'user_id' },
+    related: { table: 'users', key: 'id' }
   }),
   addCuisineName: (restaurants) => {
     let updated = restaurants.map(restaurant => {
