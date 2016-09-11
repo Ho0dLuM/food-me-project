@@ -21,7 +21,8 @@ const paths = {
     path.join('src', 'client', 'css', '*.css')
   ],
   scss: [
-    path.join('src', 'client', 'scss', '*.scss')
+    path.join('src', 'client', 'scss', '*.scss'),
+    path.join('src', 'client', 'scss', '**', '*.scss'),
   ],
   views: [
     path.join('src', 'server', '**', '*.njk'),
