@@ -44,6 +44,7 @@ footer {
   display: flex;
   flex-direction: row;
   height: 80vh;
+  margin-top: -2rem;
   padding: 5rem; }
   .hero .title {
     align-self: center;

@@ -4,8 +4,6 @@
 
 {% block content %}
 
-  {% include '../partials/_nav.njk' %}
-
   <div class="restaurants container">
     {% for restaurant in restaurants %}
       {% if loop.index % 3 == 1 %}<div class="row">{% endif %}
