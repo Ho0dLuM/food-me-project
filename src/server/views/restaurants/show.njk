@@ -23,7 +23,7 @@
             <a href="/restaurants/{{ restaurant.id }}/edit" class="btn btn-block btn-info">Edit</a>
           </div>
           <div class="col-md-4 col-md-offset-4">
-            <a href="#" class="btn btn-block btn-danger">Delete</a>
+            <a href="/restaurants/{{ restaurant.id }}" id="delete-restaurant" data-delete-redirect="true" class="btn btn-block btn-danger">Delete</a>
           </div>
         </div>
 
@@ -48,8 +48,8 @@
                         {{ employee.role }}
                       </td>
                       <td>
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
+                        <a href="/restaurants/{{ restaurant.id }}/employees/{{ employee.id }}/edit">Edit</a>
+                        <a href="/restaurants/{{ restaurant.id }}/employees/{{ employee.id }}" data-delete-table="true" id="delete-employee">Delete</a>
                       </td>
                     </tr>
                   {% endfor %}
