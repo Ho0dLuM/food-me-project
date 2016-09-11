@@ -1,0 +1,69 @@
+.restaurant {
+  i {
+    color: $primary;
+  }
+
+  h1 {
+    color: $black;
+    font-size: 5rem;
+    margin: 0 0 2rem 1rem;
+  }
+
+  .cuisine-type span {
+    color: $black;
+    font-weight: 900;
+  }
+
+  p.description {
+    line-height: 1.5rem;
+  }
+
+  img {
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+}
+
+h2.reviews-title {
+  border-bottom: 3px dotted $primary;
+  font-weight: 100;
+  margin: 0 8rem 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+
+  span {
+    font-weight: 900;
+  }
+}
+
+.review {
+  margin-bottom: 1rem;
+  padding: 1rem;
+
+  &.active {
+    border-left: 3px solid $primary;
+  }
+
+  h5.date {
+    font-weight: 100;
+  }
+
+  h5.reviewer {
+    font-weight: 900;
+    text-align: right;
+  }
+
+  p.full-content {
+    display: none;
+  }
+}
+
+.employees {
+  margin-top: 1rem;
+
+  h2 {
+    border-top: 1px dashed $primary;
+    padding-top: 2rem;
+  }
+}

@@ -1,0 +1,11 @@
+<div class="rating" data-rating="{{ rating }}">
+  {% for i in range(1,6) -%}
+    {% if i <= rating %}
+      <i class="fa fa-star" aria-hidden="true"></i>
+    {% elif i <= (rating + 0.5) and i < (rating + 1 ) %}
+      <i class="fa fa-star-half-o" aria-hidden="true"></i>
+    {% else %}
+      <i class="fa fa-star-o" aria-hidden="true"></i>
+    {% endif %}
+  {%- endfor %}
+</div>

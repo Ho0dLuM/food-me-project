@@ -4,9 +4,78 @@
 
 {% block content %}
 
+  {% include '../partials/_nav.njk' %}
+
   <div class="container">
-    <h1>{{ restaurant.name }}</h1>
-    <p>{{ restaurant | dump }}</p>
+    <div class="row restaurant">
+      <h1 class="script">{{ restaurant.name }}</h1>
+      <div class="col-md-6">
+        <img src="/images/restaurants/{{ restaurant.cuisine }}.jpg"
+          alt="Image from {{ restaurant.name }}" />
+        <h4>{{ restaurant.addresses[0].city }}, {{ restaurant.addresses[0].state }}</h4>
+        <p>{% include './partials/_rating.njk' %}</p>
+        <p class="description">{{ restaurant.description }}</p>
+        <p class="cuisine-type">
+          <span>Cuisine Type:</span> {{ restaurant.cuisine | capitalize }}
+        </p>
+
+        {% if restaurant.employees.length > 0 %}
+          <div class="employees row">
+            <div class="col-md-12">
+              <h2>Employees</h2>
+              <table class="table">
+                <thead>
+                  <th>Name</th>
+                  <th>Position</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  {% for employee in restaurant.employees %}
+                    {% set user = employee.users[0] %}
+                    <tr>
+                      <td>
+                        {{ user.preferred_name }} {{ user.last_name }}
+                      </td>
+                      <td>
+                        {{ employee.role }}
+                      </td>
+                      <td>
+                        <a href="#">Edit</a>
+                        <a href="#">Delete</a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+      <div class="col-md-6">
+        <h2 class="reviews-title">
+          <span>{{ restaurant.rating.numOfReviews }}</span> Reviews
+        </h2>
+
+        {% for review in restaurant.reviews %}
+          <div class="review">
+            <p class="truncated">{{ review.content | truncate(150) }}</p>
+            <p class="full-content">{{ review.content }}</p>
+            <div class="row">
+              <div class="col-md-4">
+                {% set rating = review.rating %}
+                <p>{% include './partials/_stars.njk' %}</p>
+              </div>
+              <div class="col-md-4">
+                <h5 class="date">{{ review.created_at | date('MMMM Do, YYYY') }}</h5>
+              </div>
+              <div class="col-md-4">
+                <h5 class="reviewer">{{ review.preferred_name }} {{ review.last_name[0] }}.</h5>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 
 {% endblock %}
