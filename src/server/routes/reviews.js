@@ -36,23 +36,16 @@ function newReviewRoute (req, res, next) {
 }
 
 function editReviewRoute (req, res, next) {
-  let { restaurantId, id } = req.params
-  Restaurant.get(restaurantId)
-  .then(restaurants => {
+  Review.get(req.params.id)
+  .then(Review.getRestaurants)
+  .then(Review.getUsers)
+  .then(reviews => {
+    let review = reviews[0]
+
+    let { restaurants, users } = review
     let restaurant = restaurants[0]
-    return Review.get(id).then(reviews => {
-      let review = reviews[0]
-      return Promise.resolve({ restaurant, review })
-    })
-  })
-  .then(({ restaurant, review }) => {
-    return User.get()
-    .then(users => {
-      let user = users[0] // dummy user for now
-      return Promise.resolve({ restaurant, review, user })
-    })
-  })
-  .then(({ restaurant, review, user }) => {
+    let user = users[0]
+
     res.render('reviews/edit', {
       restaurant, user, review
     })
@@ -83,16 +76,14 @@ function createReviewRoute (req, res, next) {
 
 function updateReviewRoute (req, res, next) {
   if (req.body.errors) {
-    Restaurant.get(req.body.restaurantId)
-    .then(restaurants => {
+    Review.get(req.params.id)
+    .then(Review.getRestaurants)
+    .then(Review.getUsers)
+    .then(reviews => {
+      let { restaurants, users } = reviews[0]
       let restaurant = restaurants[0]
-      return User.get(req.body.user_id)
-      .then(users => {
-        let user = users[0] // dummy user for now
-        return Promise.resolve({ restaurant, user })
-      })
-    })
-    .then(({ restaurant, user }) => {
+      let user = users[0]
+
       let { errors, review } = req.body
       res.render('reviews/edit', { errors, restaurant, review, user })
     })

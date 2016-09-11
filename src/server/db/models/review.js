@@ -5,6 +5,11 @@ module.exports = {
   create: util.create('reviews'),
   update: util.update('reviews'),
   del: util.del('reviews'),
+  getRestaurants: util.getResource({
+    table: 'restaurants',
+    primary: { resource: 'review', key: 'restaurant_id' },
+    foreign: { resource: 'restaurant', key: 'id' }
+  }),
   getUsers: util.getResource({
     table: 'users',
     primary: { resource: 'review', key: 'user_id' },
