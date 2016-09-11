@@ -42,22 +42,33 @@ function getOneRestaurantRoute (req, res, next) {
   .then(Restaurant.addCuisineName)
   .then(Restaurant.getAddresses)
   .then(Restaurant.getReviews)
+  .then(restaurants => {
+    let promises = restaurants[0].reviews.map(review => {
+      return Review.get(review.id)
+        .then(Review.getUsers)
+        .then(reviews => reviews[0])
+    })
+
+    return Promise.all(promises).then(reviews => {
+      restaurants[0].reviews = reviews
+      return Promise.resolve(restaurants)
+    })
+  })
   .then(Restaurant.calculateRating)
   .then(Restaurant.getEmployees)
-  .then(Restaurant.getUsersFromReviews)
-  .then((restaurants) => {
+  .then(restaurants => {
     let promises = restaurants[0].employees.map(employee => {
       return Employee.get(employee.id)
         .then(Employee.getUsers)
-        .then(employee => employee[0])
+        .then(employees => employees[0])
     })
 
     return Promise.all(promises).then(employees => {
       restaurants[0].employees = employees
-      return restaurants
+      return Promise.all(restaurants)
     })
   })
-  .then((restaurants) => {
+  .then(restaurants => {
     let restaurant = restaurants[0]
     res.render('restaurants/show', { restaurant })
   })
