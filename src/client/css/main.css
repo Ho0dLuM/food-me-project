@@ -7,7 +7,7 @@ nav {
   nav h2 {
     color: #E8F1F2;
     font-family: "Kaushan Script", cursive;
-    flex: 2;
+    flex: 1;
     margin: 0;
     padding: 1rem; }
     nav h2 a, nav h2 a:visited, nav h2 a:active, nav h2 a:hover {
@@ -15,12 +15,13 @@ nav {
       text-decoration: none; }
   nav ul {
     align-self: flex-end;
+    display: flex;
+    justify-content: flex-end;
     margin: 0;
-    flex: 1; }
+    flex: 2; }
   nav li {
     display: inline-block;
-    padding: 1rem;
-    text-align: center; }
+    padding: 1rem; }
     nav li a, nav li a:visited, nav li a:active {
       color: #E8F1F2; }
       nav li a:hover, nav li a:visited:hover, nav li a:active:hover {
