@@ -151,3 +151,14 @@ html {
 
 .script {
   font-family: "Kaushan Script", cursive; }
+
+.form-page {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 75vh; }
+  .form-page h1 {
+    border-bottom: 1px solid #CCCCCC;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem; }
