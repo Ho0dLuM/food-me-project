@@ -22,7 +22,10 @@
           <div class="col-md-4">
             <a href="/restaurants/{{ restaurant.id }}/edit" class="btn btn-block btn-info">Edit</a>
           </div>
-          <div class="col-md-4 col-md-offset-4">
+          <div class="col-md-4">
+            <a href="/restaurants/{{ restaurant.id }}/employees/new" class="btn btn-block btn-default">Add Employee</a>
+          </div>
+          <div class="col-md-4">
             <a href="/restaurants/{{ restaurant.id }}" id="delete-restaurant" data-delete-redirect="true" class="btn btn-block btn-danger">Delete</a>
           </div>
         </div>
@@ -61,8 +64,12 @@
       </div>
       <div class="col-md-6">
         <h2 class="reviews-title">
-          <span>{{ restaurant.rating.numOfReviews }}</span> Reviews
+          <span>{{ restaurant.rating.numOfReviews or 'No' }}</span> Reviews
         </h2>
+
+        {% if not restaurant.rating %}
+          <p class="no-rating"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> We don't have any reviews for this restaurant!</p>
+        {% endif %}
 
         {% for review in restaurant.reviews %}
           <div class="review">

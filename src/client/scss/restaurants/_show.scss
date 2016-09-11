@@ -67,3 +67,14 @@ h2.reviews-title {
     padding-top: 2rem;
   }
 }
+
+.no-rating {
+  background: $warning;
+  font-size: 0.8rem;
+  padding: 1rem;
+
+  i {
+    color: $black;
+    margin-right: 0.5rem;
+  }
+}

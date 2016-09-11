@@ -89,13 +89,6 @@ footer {
 .restaurants .rating i {
   color: #1B98E0; }
 
-.restaurants .no-rating {
-  background: #E7E247;
-  font-size: 0.8rem;
-  padding: 1rem; }
-  .restaurants .no-rating i {
-    margin-right: 0.5rem; }
-
 .restaurant i {
   color: #1B98E0; }
 
@@ -143,6 +136,14 @@ h2.reviews-title {
   .employees h2 {
     border-top: 1px dashed #1B98E0;
     padding-top: 2rem; }
+
+.no-rating {
+  background: #E7E247;
+  font-size: 0.8rem;
+  padding: 1rem; }
+  .no-rating i {
+    color: #2D2D2D;
+    margin-right: 0.5rem; }
 
 html {
   color: #2D2D2D;
