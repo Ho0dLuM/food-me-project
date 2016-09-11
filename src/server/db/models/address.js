@@ -4,6 +4,7 @@ module.exports = {
   create: util.create('addresses'),
   get: util.get('addresses'),
   update: util.update('addresses'),
+  del: util.del('addresses'),
   validate: util.validate((errors, body) => {
     if (!body.address) {
       errors.push('Missing address information.')

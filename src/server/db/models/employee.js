@@ -4,6 +4,7 @@ module.exports = {
   create: util.create('employees'),
   get: util.get('employees'),
   update: util.update('employees'),
+  del: util.del('employees'),
   getUsers: util.getResource({
     table: 'users',
     primary: { resource: 'employee', key: 'user_id' },

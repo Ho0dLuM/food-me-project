@@ -26,6 +26,13 @@ function update (table) {
   }
 }
 
+function del (table) {
+  return (ids) => {
+    if (!Array.isArray(ids)) { ids = [ids] }
+    return knex(table).del().whereIn('id', ids)
+  }
+}
+
 function validate (callback) {
   return (req, res, next) => {
     let errors = []
@@ -139,5 +146,5 @@ function compose (primaries, relationName, primaryName, secondaryName) {
 }
 
 module.exports = {
-  get, create, update, validate, getResource, getJoin, compose
+  get, create, update, del, validate, getResource, getJoin, compose
 }
