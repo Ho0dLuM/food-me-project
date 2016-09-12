@@ -16,26 +16,32 @@
         <p class="cuisine-type">
           <span>Cuisine Type:</span> {{ restaurant.cuisine | capitalize }}
         </p>
-        <div class="row">
-          <div class="col-md-4">
-            <a href="/restaurants/{{ restaurant.id }}/edit" class="btn btn-block btn-info">Edit</a>
+        {% if currentUser and currentUser.admin %}
+          <div class="row">
+            <div class="col-md-4">
+              <a href="/restaurants/{{ restaurant.id }}/edit" class="btn btn-block btn-info">Edit</a>
+            </div>
+            <div class="col-md-4">
+              <a href="/restaurants/{{ restaurant.id }}/employees/new" class="btn btn-block btn-default">Add Employee</a>
+            </div>
+            <div class="col-md-4">
+              <a href="/restaurants/{{ restaurant.id }}" id="delete-restaurant" data-delete-redirect="true" class="btn btn-block btn-danger">Delete</a>
+            </div>
           </div>
-          <div class="col-md-4">
-            <a href="/restaurants/{{ restaurant.id }}/employees/new" class="btn btn-block btn-default">Add Employee</a>
-          </div>
-          <div class="col-md-4">
-            <a href="/restaurants/{{ restaurant.id }}" id="delete-restaurant" data-delete-redirect="true" class="btn btn-block btn-danger">Delete</a>
-          </div>
-        </div>
+        {% endif %}
 
-        {% include './partials/_employees.njk' %}
+        {% if currentUser and currentUser.admin %}
+          {% include './partials/_employees.njk' %}
+        {% endif %}
       </div>
       <div class="col-md-6">
         <h2 class="reviews-title">
           <span>{{ restaurant.rating.numOfReviews or 'No' }}</span> Reviews
         </h2>
 
-        <p class="new-review">Create a <a href="/restaurants/{{ restaurant.id }}/reviews/new">New Review</a> for this restaurant!</p>
+        {% if currentUser %}
+          <p class="new-review">Create a <a href="/restaurants/{{ restaurant.id }}/reviews/new">New Review</a> for this restaurant!</p>
+        {% endif %}
 
         {% if not restaurant.rating %}
           <p class="no-rating"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> We don't have any reviews for this restaurant!</p>

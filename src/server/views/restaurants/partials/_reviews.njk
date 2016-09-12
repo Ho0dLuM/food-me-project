@@ -18,7 +18,9 @@
     <div class="row">
       <div class="col-md-12">
         <p>
-          <a href="/restaurants/{{ restaurant.id }}/reviews/{{ review.id }}/edit">Edit Review</a>
+          {% if currentUser and currentUser.id == review.user_id %}
+            <a href="/restaurants/{{ restaurant.id }}/reviews/{{ review.id }}/edit">Edit Review</a>
+          {% endif %}
         </p>
       </div>
     </div>
