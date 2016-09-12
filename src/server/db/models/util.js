@@ -14,6 +14,12 @@ function get (resourceName) {
   }
 }
 
+function findOne (resourceName) {
+  return (where) => {
+    return knex(resourceName).where(where).first()
+  }
+}
+
 function create (table) {
   return (body) => {
     return knex(table).insert(body, '*')
@@ -145,5 +151,5 @@ function compose (primaries, relationName, primaryName, secondaryName) {
 }
 
 module.exports = {
-  get, create, update, del, validate, getResource, getRelated, compose
+  get, findOne, create, update, del, validate, getResource, getRelated, compose
 }

@@ -5,6 +5,7 @@ module.exports = {
   get: util.get('users'),
   update: util.update('users'),
   del: util.del('users'),
+  findOne: util.findOne('users'),
   validate: util.validate((errors, body) => {
     if (!body.user) {
       errors.push('Missing user information.')
