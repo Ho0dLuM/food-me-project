@@ -2,23 +2,25 @@ const express = require('express')
 const router = express.Router({ mergeParams: true })
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
-const { Account, User } = require('../db')
+const { Auth, Account, User } = require('../db')
 const util = require('./util')
 const segment = util.segmentBody('user')
 
-router.get('/signup', newUserRoute)
-router.get('/login', newSessionRoute)
+router.get('/signup', Auth.noLoginRequired, newUserRoute)
+router.get('/login', Auth.noLoginRequired, newSessionRoute)
 router.post('/users',
+  Auth.noLoginRequired,
   segment,
   User.validate,
   createUserRoute)
 router.post('/login',
+  Auth.noLoginRequired,
   passport.authenticate('local', {
     failureRedirect: '/login',
     failureFlash: true
   }),
   createSessionRoute)
-router.get('/logout', deleteSessionRoute)
+router.get('/logout', Auth.loginRequired, deleteSessionRoute)
 
 // ------------------------------------- //
 

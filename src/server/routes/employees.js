@@ -1,22 +1,32 @@
 const express = require('express')
 const router = express.Router({ mergeParams: true })
-const { Employee, User } = require('../db')
+const { Auth, Employee, User } = require('../db')
 const util = require('./util')
 const segment = util.segmentBody('employee')
 
 router.get('/new', newEmployeeRoute)
-router.get('/:id/edit', editEmployeeRoute)
+router.get('/:id/edit',
+  Auth.loginRequired,
+  Auth.adminRequired,
+  editEmployeeRoute)
 router.post('/',
   segment,
+  Auth.loginRequired,
+  Auth.adminRequired,
   Employee.validate,
   User.validate,
   createEmployeeRoute)
 router.put('/:id',
   segment,
+  Auth.loginRequired,
+  Auth.adminRequired,
   Employee.validate,
   User.validate,
   updateEmployeeRoute)
-router.delete('/:id', deleteEmployeeRoute)
+router.delete('/:id',
+  Auth.loginRequired,
+  Auth.adminRequired,
+  deleteEmployeeRoute)
 
 // ------------------------------------- //
 

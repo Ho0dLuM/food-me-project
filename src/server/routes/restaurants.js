@@ -1,25 +1,35 @@
 const express = require('express')
 const router = express.Router()
-const { Address, Employee, Restaurant, Review } = require('../db')
+const { Auth, Address, Employee, Restaurant, Review } = require('../db')
 const { cuisines } = require('../config/constants')
 const util = require('./util')
 const segment = util.segmentBody('restaurant')
 
 router.get('/', getAllRestaurantsRoute)
-router.get('/new', newRestaurantRoute)
+router.get('/new', Auth.loginRequired, Auth.adminRequired, newRestaurantRoute)
 router.get('/:id', getOneRestaurantRoute)
-router.get('/:id/edit', editRestaurantRoute)
+router.get('/:id/edit',
+  Auth.loginRequired,
+  Auth.adminRequired,
+  editRestaurantRoute)
 router.post('/',
+  Auth.loginRequired,
+  Auth.adminRequired,
   segment,
   Restaurant.validate,
   Address.validate,
   createRestaurantRoute)
 router.put('/:id',
+  Auth.loginRequired,
+  Auth.adminRequired,
   segment,
   Restaurant.validate,
   Address.validate,
   updateRestaurantRoute)
-router.delete('/:id', deleteRestaurantRoute)
+router.delete('/:id',
+  Auth.loginRequired,
+  Auth.adminRequired,
+  deleteRestaurantRoute)
 
 // ------------------------------------- //
 
