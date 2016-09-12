@@ -44,7 +44,7 @@ function editReviewRoute (req, res, next) {
     let restaurant = restaurants[0]
     let { user } = req
 
-    if (req.user.id != review.user_id) {
+    if (req.user.id !== +review.user_id) {
       req.flash('error', 'You can\'t access that page.')
       res.redirect('/restaurants')
     } else {
@@ -66,7 +66,7 @@ function createReviewRoute (req, res, next) {
     })
   } else {
     let { review } = req.body
-    if (req.user.id != review.user_id) {
+    if (req.user.id !== +review.user_id) {
       req.flash('error', 'You can\'t access that page.')
       res.redirect('/restaurants')
     } else {
@@ -91,7 +91,7 @@ function updateReviewRoute (req, res, next) {
     })
   } else {
     let { review } = req.body
-    if (req.user.id != review.user_id) {
+    if (req.user.id !== +review.user_id) {
       req.flash('error', 'You can\'t access that page.')
       res.redirect('/restaurants')
     } else {
