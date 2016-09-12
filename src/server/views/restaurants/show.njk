@@ -16,7 +16,7 @@
         <p class="cuisine-type">
           <span>Cuisine Type:</span> {{ restaurant.cuisine | capitalize }}
         </p>
-        {% if currentUser and currentUser.admin %}
+        {% if currentUser and currentUser.account.admin %}
           <div class="row">
             <div class="col-md-4">
               <a href="/restaurants/{{ restaurant.id }}/edit" class="btn btn-block btn-info">Edit</a>
@@ -30,7 +30,7 @@
           </div>
         {% endif %}
 
-        {% if currentUser and currentUser.admin %}
+        {% if currentUser and currentUser.account.admin %}
           {% include './partials/_employees.njk' %}
         {% endif %}
       </div>

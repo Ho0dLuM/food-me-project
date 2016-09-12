@@ -3,7 +3,7 @@
     <h2><a href="/">food.me</a></h2>
     <ul>
       <li><a href="/restaurants">Home</a></li>
-      {% if currentUser and currentUser.admin %}
+      {% if currentUser and currentUser.account.admin %}
         <li><a href="/restaurants/new">New Restaurant</a></li>
       {% endif %}
       {% if currentUser %}
