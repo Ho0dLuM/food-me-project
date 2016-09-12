@@ -1,3 +1,7 @@
+{% if messages.error %}
+  {% set errors = messages.error %}
+{% endif %}
+
 {% if errors %}
   <div class="alert alert-danger">
     {% for error in errors %}
