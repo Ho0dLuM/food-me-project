@@ -5,8 +5,8 @@
   const path = require('path')
   const cookieParser = require('cookie-parser')
   const bodyParser = require('body-parser')
-  // const session = require('express-session')
-  const flash = require('connect-flash')
+  const session = require('express-session')
+  const flash = require('express-flash')
   const morgan = require('morgan')
   const nunjucks = require('nunjucks')
   const favicon = require('serve-favicon')
@@ -39,13 +39,12 @@
     app.use(methodOverride('_method'))
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: false }))
-    // // uncomment if using express-session
-    // app.use(session({
-    //   secret: process.env.SECRET_KEY,
-    //   resave: false,
-    //   saveUninitialized: true
-    // }))
     app.use(flash())
     app.use(express.static(path.join(__dirname, '..', '..', 'client')))
+    app.use(session({
+      secret: process.env.SECRET_KEY,
+      resave: true,
+      saveUninitialized: true
+    }))
   }
 })(module.exports)
