@@ -76,6 +76,7 @@ function editRestaurantRoute (req, res, next) {
 function createRestaurantRoute (req, res, next) {
   if (req.body.errors) {
     let { address, errors, restaurant } = req.body
+    restaurant.cuisine_type = parseInt(restaurant.cuisine_type)
     res.render('restaurants/new', { errors, restaurant, address, cuisines })
   } else {
     Address.create(req.body.address)
@@ -91,6 +92,7 @@ function createRestaurantRoute (req, res, next) {
 function updateRestaurantRoute (req, res, next) {
   if (req.body.errors) {
     let { address, errors, restaurant } = req.body
+    restaurant.cuisine_type = parseInt(restaurant.cuisine_type)
     res.render('restaurants/edit', { errors, restaurant, address, cuisines })
   } else {
     Address.update(req.body.address)
