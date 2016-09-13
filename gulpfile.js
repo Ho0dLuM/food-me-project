@@ -7,7 +7,6 @@ const runSequence = require('run-sequence');
 const nodemon = require('gulp-nodemon');
 const plumber = require('gulp-plumber');
 const notify = require('gulp-notify');
-const server = require('tiny-lr')();
 const sass = require('gulp-sass');
 
 // *** config *** //
@@ -31,8 +30,6 @@ const paths = {
   server: path.join('src', 'server', 'server.js')
 };
 
-const lrPort = 35729;
-
 const nodemonConfig = {
   script: paths.server,
   ext: 'html njk js css scss',
@@ -47,7 +44,6 @@ const nodemonConfig = {
 gulp.task('default', () => {
   runSequence(
     ['lint'],
-    ['lr'],
     ['nodemon'],
     ['scss'],
     ['watch']
@@ -77,14 +73,6 @@ gulp.task('styles', () => {
 gulp.task('views', () => {
   return gulp.src(paths.views)
     .pipe(plumber());
-});
-
-gulp.task('lr', () => {
-  server.listen(lrPort, (err) => {
-    if (err) {
-      return console.error(err);
-    }
-  });
 });
 
 gulp.task('nodemon', () => {
