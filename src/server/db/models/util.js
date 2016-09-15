@@ -15,21 +15,15 @@ function get (resourceName) {
 }
 
 function findOne (resourceName) {
-  return (where) => {
-    return knex(resourceName).where(where).first()
-  }
+  return (where) => knex(resourceName).where(where).first()
 }
 
 function create (table) {
-  return (body) => {
-    return knex(table).insert(body, '*')
-  }
+  return (body) => knex(table).insert(body, '*')
 }
 
 function update (table) {
-  return (body) => {
-    return knex(table).update(body, '*').where({ id: body.id })
-  }
+  return (body) => knex(table).update(body, '*').where({ id: body.id })
 }
 
 function del (table) {
@@ -45,11 +39,8 @@ function validate (callback) {
     callback(errors, req.body)
 
     if (errors.length) {
-      if (req.body.errors) {
-        req.body.errors = req.body.errors.concat(errors)
-      } else {
-        req.body.errors = errors
-      }
+      req.body.errors = req.body.errors || []
+      req.body.errors = req.body.errors.concat(errors)
     }
 
     next()
@@ -69,7 +60,7 @@ function validate (callback) {
 
 function getResource ({ table, primary, foreign }) {
   return (resources) => {
-    let ids = resources.map((resource) => resource[primary.key])
+    let ids = resources.map(resource => resource[primary.key])
     let secondaries = knex(table).whereIn(foreign.key, ids)
 
     return secondaries
@@ -102,17 +93,18 @@ function getResource ({ table, primary, foreign }) {
 
 function getRelated ({ related, through }) {
   return (primaryResources) => {
-    let promises = primaryResources[0][through.table].map(throughResource => {
-      return knex(through.table).where('id', throughResource.id)
-        .first()
+    let [primary] = primaryResources
+    let promises = primary[through.table].map(throughResource => {
+      return knex(through.table).where('id', throughResource.id).first()
         .then(resource => {
-          return knex(related.table).where(related.key, throughResource[through.key])
+          return knex(related.table)
+          .where(related.key, throughResource[through.key])
         })
     })
 
     return Promise.all(promises).then(relatedResources => {
       relatedResources.forEach((rows, i) => {
-        primaryResources[0][through.table][i][related.table] = rows
+        primary[through.table][i][related.table] = rows
       })
 
       return Promise.resolve(primaryResources)
