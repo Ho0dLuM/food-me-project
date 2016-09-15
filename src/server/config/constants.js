@@ -1,5 +1,5 @@
 module.exports = {
-  cuisines: [
+  CUISINES: [
     'american',
     'italian',
     'mexican',

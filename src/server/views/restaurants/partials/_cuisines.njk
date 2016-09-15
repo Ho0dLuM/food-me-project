@@ -1,4 +1,4 @@
-{% for cuisine in cuisines %}
+{% for cuisine in CUISINES %}
   <option value="{{ loop.index - 1 }}"
     {% if restaurant.cuisine_type + 1 == loop.index %}
       selected="selected"

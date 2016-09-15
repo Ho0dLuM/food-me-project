@@ -1,13 +1,13 @@
 'use strict'
 
-const { cuisines } = require('../../config/constants')
+const { CUISINES } = require('../../config/constants')
 const faker = require('faker')
 
 function restaurantPromise (knex, address) {
   return knex('restaurants').insert({
     name: `${faker.name.firstName()}'s`,
     description: faker.lorem.paragraph(),
-    cuisine_type: faker.random.number(cuisines.length - 1),
+    cuisine_type: faker.random.number(CUISINES.length - 1),
     address_id: address.id
   })
 }

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { Auth, Address, Employee, Restaurant, Review } = require('../db')
-const { cuisines } = require('../config/constants')
+const { CUISINES } = require('../config/constants')
 const util = require('./util')
 const segment = util.segmentBody('restaurant')
 
@@ -44,7 +44,7 @@ function getAllRestaurantsRoute (req, res, next) {
 }
 
 function newRestaurantRoute (req, res, next) {
-  res.render('restaurants/new', { restaurant: {}, address: {}, cuisines })
+  res.render('restaurants/new', { restaurant: {}, address: {}, CUISINES })
 }
 
 function getOneRestaurantRoute (req, res, next) {
@@ -65,7 +65,7 @@ function editRestaurantRoute (req, res, next) {
   .then(Restaurant.getAddresses)
   .then(([restaurant]) => {
     let [address] = restaurant.addresses
-    res.render('restaurants/edit', { restaurant, address, cuisines })
+    res.render('restaurants/edit', { restaurant, address, CUISINES })
   })
 }
 
@@ -73,7 +73,7 @@ function createRestaurantRoute (req, res, next) {
   if (req.body.errors) {
     let { address, errors, restaurant } = req.body
     restaurant.cuisine_type = parseInt(restaurant.cuisine_type)
-    res.render('restaurants/new', { errors, restaurant, address, cuisines })
+    res.render('restaurants/new', { errors, restaurant, address, CUISINES })
   } else {
     Address.create(req.body.address)
     .then(([address]) => {
@@ -89,7 +89,7 @@ function updateRestaurantRoute (req, res, next) {
   if (req.body.errors) {
     let { address, errors, restaurant } = req.body
     restaurant.cuisine_type = parseInt(restaurant.cuisine_type)
-    res.render('restaurants/edit', { errors, restaurant, address, cuisines })
+    res.render('restaurants/edit', { errors, restaurant, address, CUISINES })
   } else {
     Address.update(req.body.address)
     .then(address => Restaurant.update(req.body.restaurant))

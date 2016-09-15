@@ -1,7 +1,7 @@
 const Promise = require('bluebird')
 const util = require('./util')
 const table = 'restaurants'
-const { cuisines } = require('../../config/constants')
+const { CUISINES } = require('../../config/constants')
 
 module.exports = {
   get: util.get(table),
@@ -33,7 +33,7 @@ module.exports = {
   }),
   addCuisineName: (restaurants) => {
     let updated = restaurants.map(restaurant => {
-      restaurant.cuisine = cuisines[restaurant.cuisine_type]
+      restaurant.cuisine = CUISINES[restaurant.cuisine_type]
       return restaurant
     })
 
