@@ -6,16 +6,16 @@ module.exports = {
   get: util.get(table),
   update: util.update(table),
   del: util.del(table),
-  validate: util.validate((errors, body) => {
-    if (!body.address) {
+  validate: util.validate((errors, { address }) => {
+    if (!address) {
       errors.push('Missing address information.')
     } else {
-      if (!body.address.state) {
+      if (!address.state) {
         errors.push('State field is required.')
-      } else if (body.address.state.length > 2) {
+      } else if (address.state.length > 2) {
         errors.push('State info malformed.')
       }
-      if (!body.address.city) errors.push('City field is required.')
+      if (!address.city) errors.push('City field is required.')
     }
   })
 }

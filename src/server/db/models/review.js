@@ -16,12 +16,12 @@ module.exports = {
     primary: { resource: 'review', key: 'user_id' },
     foreign: { resource: 'user', key: 'id' }
   }),
-  validate: util.validate((errors, body) => {
-    if (!body.review) {
+  validate: util.validate((errors, { review }) => {
+    if (!review) {
       errors.push('Missing review information.')
     } else {
-      if (!body.review.content) errors.push('Content is required.')
-      if (!body.review.rating) errors.push('A rating is required.')
+      if (!review.content) errors.push('Content is required.')
+      if (!review.rating) errors.push('A rating is required.')
     }
   })
 }

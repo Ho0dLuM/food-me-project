@@ -42,18 +42,17 @@ module.exports = {
   calculateRating: (restaurants) => {
     let updated = restaurants.map(restaurant => {
       let round = 100
-      let total = restaurant.reviews.reduce((acc, curr) => {
-        return acc + (curr.rating || 0)
-      }, 0)
+      let { reviews } = restaurant
+      let total = reviews.reduce((acc, curr) => acc + (curr.rating || 0), 0)
 
       if (!total) return restaurant
 
-      let average = total / restaurant.reviews.length
+      let average = total / reviews.length
       let formatted = Math.round(average * round) / round
 
       restaurant.rating = {
         average: formatted,
-        numOfReviews: restaurant.reviews.length
+        numOfReviews: reviews.length
       }
 
       return restaurant
@@ -61,14 +60,12 @@ module.exports = {
 
     return Promise.resolve(updated)
   },
-  validate: util.validate((errors, body) => {
-    if (!body.restaurant) {
+  validate: util.validate((errors, { restaurant }) => {
+    if (!restaurant) {
       errors.push('Missing restaurant information.')
     } else {
-      if (!body.restaurant.name) {
-        errors.push('Restaurant name field is required.')
-      }
-      if (!body.restaurant.cuisine_type) {
+      if (!restaurant.name) errors.push('Restaurant name field is required.')
+      if (!restaurant.cuisine_type) {
         errors.push('Restaurant name field is required.')
       }
     }

@@ -11,11 +11,11 @@ module.exports = {
     primary: { resource: 'employee', key: 'user_id' },
     foreign: { resource: 'user', key: 'id' }
   }),
-  validate: util.validate((errors, body) => {
-    if (!body.employee) {
+  validate: util.validate((errors, { employee }) => {
+    if (!employee) {
       errors.push('Missing employee information.')
     } else {
-      if (!body.employee.role) errors.push('Role field is required.')
+      if (!employee.role) errors.push('Role field is required.')
     }
   })
 }

@@ -7,12 +7,12 @@ module.exports = {
   update: util.update(table),
   del: util.del(table),
   findOne: util.findOne(table),
-  validate: util.validate((errors, body) => {
-    if (!body.user) {
+  validate: util.validate((errors, { user }) => {
+    if (!user) {
       errors.push('Missing user information.')
     } else {
-      if (!body.user.preferred_name) errors.push('Preferred Name is required.')
-      if (!body.user.last_name) errors.push('Last Name is required.')
+      if (!user.preferred_name) errors.push('Preferred Name is required.')
+      if (!user.last_name) errors.push('Last Name is required.')
     }
   })
 }
