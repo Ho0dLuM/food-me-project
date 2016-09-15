@@ -76,10 +76,9 @@ function updateReviewRoute (req, res, next) {
   if (req.body.errors) {
     Review.get(req.params.id)
     .then(Review.getRestaurants)
-    .then(reviews => {
+    .then(([{ restaurants: [restaurant] }]) => {
       let { user } = req
       let { errors, review } = req.body
-      let [restaurant] = reviews[0].restaurants
 
       res.render('reviews/edit', { errors, restaurant, review, user })
     })
