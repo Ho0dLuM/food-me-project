@@ -43,11 +43,11 @@ function createEmployeeRoute (req, res, next) {
     res.render('employees/new', { employee, errors, user })
   } else {
     User.create(req.body.user)
-    .then(user => {
-      req.body.employee.user_id = user[0].id
+    .then(([user]) => {
+      req.body.employee.user_id = user.id
       return Employee.create(req.body.employee)
     })
-    .then(employee => res.redirect(`/restaurants/${employee[0].restaurant_id}`))
+    .then(([emp]) => res.redirect(`/restaurants/${emp.restaurant_id}`))
     .catch(util.catchError(next))
   }
 }
@@ -55,9 +55,8 @@ function createEmployeeRoute (req, res, next) {
 function editEmployeeRoute (req, res, next) {
   Employee.get(req.params.id)
   .then(Employee.getUsers)
-  .then(employees => {
-    let employee = employees[0]
-    let user = employee.users[0]
+  .then(([employee]) => {
+    let [user] = employee.users
     res.render('employees/edit', { employee, user })
   }).catch(util.catchError)
 }
@@ -69,7 +68,7 @@ function updateEmployeeRoute (req, res, next) {
   } else {
     User.update(req.body.user)
     .then(user => Employee.update(req.body.employee))
-    .then(employee => res.redirect(`/restaurants/${employee[0].restaurant_id}`))
+    .then(([emp]) => res.redirect(`/restaurants/${emp.restaurant_id}`))
     .catch(util.catchError(next))
   }
 }

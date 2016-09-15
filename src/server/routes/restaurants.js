@@ -56,19 +56,15 @@ function getOneRestaurantRoute (req, res, next) {
   .then(Restaurant.calculateRating)
   .then(Restaurant.getEmployees)
   .then(Restaurant.getUsersThroughEmployees)
-  .then(restaurants => {
-    let restaurant = restaurants[0]
-    res.render('restaurants/show', { restaurant })
-  })
+  .then(([restaurant]) => res.render('restaurants/show', { restaurant }))
   .catch(util.catchError)
 }
 
 function editRestaurantRoute (req, res, next) {
   Restaurant.get(req.params.id)
   .then(Restaurant.getAddresses)
-  .then((restaurants) => {
-    let restaurant = restaurants[0]
-    let address = restaurant.addresses[0]
+  .then(([restaurant]) => {
+    let [address] = restaurant.addresses
     res.render('restaurants/edit', { restaurant, address, cuisines })
   })
 }
@@ -80,8 +76,8 @@ function createRestaurantRoute (req, res, next) {
     res.render('restaurants/new', { errors, restaurant, address, cuisines })
   } else {
     Address.create(req.body.address)
-    .then(address => {
-      req.body.restaurant.address_id = address[0].id
+    .then(([address]) => {
+      req.body.restaurant.address_id = address.id
       return Restaurant.create(req.body.restaurant)
     })
     .then(restaurant => res.redirect(`/restaurants/${restaurant[0].id}`))
@@ -97,7 +93,7 @@ function updateRestaurantRoute (req, res, next) {
   } else {
     Address.update(req.body.address)
     .then(address => Restaurant.update(req.body.restaurant))
-    .then(restaurant => res.redirect(`/restaurants/${restaurant[0].id}`))
+    .then(([restaurant]) => res.redirect(`/restaurants/${restaurant.id}`))
     .catch(util.catchError(next))
   }
 }
@@ -107,9 +103,8 @@ function deleteRestaurantRoute (req, res, next) {
   .then(Restaurant.getAddresses)
   .then(Restaurant.getReviews)
   .then(Restaurant.getEmployees)
-  .then(restaurants => {
-    let restaurant = restaurants[0]
-    let address = restaurant.addresses[0]
+  .then(([restaurant]) => {
+    let [address] = restaurant.addresses
     let delEmps = restaurant.employees.map(emp => Employee.del(emp.id))
     let delReviews = restaurant.reviews.map(review => Review.del(review.id))
     let deletions = delEmps.concat(delReviews)

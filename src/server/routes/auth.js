@@ -40,8 +40,8 @@ function createUserRoute (req, res, next) {
     let { account, user } = req.body
     account.password = bcrypt.hashSync(account.password, 8)
     Account.create(req.body.account)
-    .then(account => {
-      user.account_id = account[0].id
+    .then(([account]) => {
+      user.account_id = account.id
       return User.create(user)
     })
     .then(users => res.redirect(`/login`))

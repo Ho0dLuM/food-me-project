@@ -25,8 +25,7 @@ router.put('/:id',
 
 function newReviewRoute (req, res, next) {
   Restaurant.get(req.params.restaurantId)
-  .then(restaurants => {
-    let restaurant = restaurants[0]
+  .then(([restaurant]) => {
     let { user } = req
     res.render('reviews/new', {
       restaurant, user, review: {}
@@ -37,14 +36,11 @@ function newReviewRoute (req, res, next) {
 function editReviewRoute (req, res, next) {
   Review.get(req.params.id)
   .then(Review.getRestaurants)
-  .then(reviews => {
-    let review = reviews[0]
-
-    let { restaurants } = review
-    let restaurant = restaurants[0]
+  .then(([review]) => {
+    let [restaurant] = review.restaurants
     let { user } = req
 
-    if (req.user.id !== +review.user_id) {
+    if (req.user.id !== parseInt(review.user_id)) {
       req.flash('error', 'You can\'t access that page.')
       res.redirect('/restaurants')
     } else {
@@ -58,20 +54,19 @@ function editReviewRoute (req, res, next) {
 function createReviewRoute (req, res, next) {
   if (req.body.errors) {
     Restaurant.get(req.body.restaurantId)
-    .then(restaurants => {
-      let restaurant = restaurants[0]
+    .then(([restaurant]) => {
       let { user } = req
       let { errors, review } = req.body
       res.render('reviews/new', { errors, restaurant, review, user })
     })
   } else {
     let { review } = req.body
-    if (req.user.id !== +review.user_id) {
+    if (req.user.id !== parseInt(review.user_id)) {
       req.flash('error', 'You can\'t access that page.')
       res.redirect('/restaurants')
     } else {
       Review.create(review)
-      .then(reviews => res.redirect(`/restaurants/${reviews[0].restaurant_id}`))
+      .then(([review]) => res.redirect(`/restaurants/${review.restaurant_id}`))
       .catch(util.catchError(next))
     }
   }
@@ -83,20 +78,19 @@ function updateReviewRoute (req, res, next) {
     .then(Review.getRestaurants)
     .then(reviews => {
       let { user } = req
-      let { restaurants } = reviews[0]
       let { errors, review } = req.body
-      let restaurant = restaurants[0]
+      let [restaurant] = reviews[0].restaurants
 
       res.render('reviews/edit', { errors, restaurant, review, user })
     })
   } else {
     let { review } = req.body
-    if (req.user.id !== +review.user_id) {
+    if (req.user.id !== parseInt(review.user_id)) {
       req.flash('error', 'You can\'t access that page.')
       res.redirect('/restaurants')
     } else {
       Review.update(review)
-      .then(reviews => res.redirect(`/restaurants/${reviews[0].restaurant_id}`))
+      .then(([review]) => res.redirect(`/restaurants/${review.restaurant_id}`))
       .catch(util.catchError(next))
     }
   }
