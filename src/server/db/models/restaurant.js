@@ -1,12 +1,13 @@
 const Promise = require('bluebird')
 const util = require('./util')
+const table = 'restaurants'
 const { cuisines } = require('../../config/constants')
 
 module.exports = {
-  get: util.get('restaurants'),
-  create: util.create('restaurants'),
-  update: util.update('restaurants'),
-  del: util.del('restaurants'),
+  get: util.get(table),
+  create: util.create(table),
+  update: util.update(table),
+  del: util.del(table),
   getAddresses: util.getResource({
     table: 'addresses',
     primary: { resource: 'restaurant', key: 'address_id' },

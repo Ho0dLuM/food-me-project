@@ -1,11 +1,12 @@
 const util = require('./util')
+const table = 'users'
 
 module.exports = {
-  create: util.create('users'),
-  get: util.get('users'),
-  update: util.update('users'),
-  del: util.del('users'),
-  findOne: util.findOne('users'),
+  create: util.create(table),
+  get: util.get(table),
+  update: util.update(table),
+  del: util.del(table),
+  findOne: util.findOne(table),
   validate: util.validate((errors, body) => {
     if (!body.user) {
       errors.push('Missing user information.')

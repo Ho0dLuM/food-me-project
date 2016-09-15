@@ -1,10 +1,11 @@
 const util = require('./util')
+const table = 'addresses'
 
 module.exports = {
-  create: util.create('addresses'),
-  get: util.get('addresses'),
-  update: util.update('addresses'),
-  del: util.del('addresses'),
+  create: util.create(table),
+  get: util.get(table),
+  update: util.update(table),
+  del: util.del(table),
   validate: util.validate((errors, body) => {
     if (!body.address) {
       errors.push('Missing address information.')

@@ -1,10 +1,11 @@
 const util = require('./util')
+const table = 'employees'
 
 module.exports = {
-  create: util.create('employees'),
-  get: util.get('employees'),
-  update: util.update('employees'),
-  del: util.del('employees'),
+  create: util.create(table),
+  get: util.get(table),
+  update: util.update(table),
+  del: util.del(table),
   getUsers: util.getResource({
     table: 'users',
     primary: { resource: 'employee', key: 'user_id' },
