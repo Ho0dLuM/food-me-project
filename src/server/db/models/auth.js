@@ -15,7 +15,10 @@ module.exports = {
     }
   },
   adminRequired: (req, res, next) => {
-    if (!req.user.account.admin) {
+    if (!req.user) {
+      req.flash('error', 'You must login to reach that page.')
+      res.redirect('/login')
+    } else if (!req.user.account.admin) {
       req.flash('error', 'Sorry, you don\'t have access to that page')
       res.redirect('/restaurants')
     } else {

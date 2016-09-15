@@ -6,28 +6,24 @@ const util = require('./util')
 const segment = util.segmentBody('restaurant')
 
 router.get('/', getAllRestaurantsRoute)
-router.get('/new', Auth.loginRequired, Auth.adminRequired, newRestaurantRoute)
+router.get('/new', Auth.adminRequired, newRestaurantRoute)
 router.get('/:id', getOneRestaurantRoute)
 router.get('/:id/edit',
-  Auth.loginRequired,
   Auth.adminRequired,
   editRestaurantRoute)
 router.post('/',
-  Auth.loginRequired,
   Auth.adminRequired,
   segment,
   Restaurant.validate,
   Address.validate,
   createRestaurantRoute)
 router.put('/:id',
-  Auth.loginRequired,
   Auth.adminRequired,
   segment,
   Restaurant.validate,
   Address.validate,
   updateRestaurantRoute)
 router.delete('/:id',
-  Auth.loginRequired,
   Auth.adminRequired,
   deleteRestaurantRoute)
 

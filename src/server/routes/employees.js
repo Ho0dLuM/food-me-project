@@ -6,25 +6,21 @@ const segment = util.segmentBody('employee')
 
 router.get('/new', newEmployeeRoute)
 router.get('/:id/edit',
-  Auth.loginRequired,
   Auth.adminRequired,
   editEmployeeRoute)
 router.post('/',
   segment,
-  Auth.loginRequired,
   Auth.adminRequired,
   Employee.validate,
   User.validate,
   createEmployeeRoute)
 router.put('/:id',
   segment,
-  Auth.loginRequired,
   Auth.adminRequired,
   Employee.validate,
   User.validate,
   updateEmployeeRoute)
 router.delete('/:id',
-  Auth.loginRequired,
   Auth.adminRequired,
   deleteEmployeeRoute)
 
