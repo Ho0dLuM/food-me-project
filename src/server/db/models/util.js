@@ -91,22 +91,51 @@ function getResource ({ table, primary, foreign }) {
     .then(Restaurant.getUsersThroughReviews)
 ***/
 
+// Take in an options object with a related and through key.
+// Through is the middle association (reviews in the above example)
+// while related is the final destination (users in the above example)
 function getRelated ({ related, through }) {
+  // Return a function that takes an array of primary resources
   return (primaryResources) => {
-    let [primary] = primaryResources
-    let promises = primary[through.table].map(throughResource => {
-      return knex(through.table).where('id', throughResource.id).first()
-        .then(resource => {
-          return knex(related.table)
-          .where(related.key, throughResource[through.key])
-        })
-    })
-
-    return Promise.all(promises).then(relatedResources => {
-      relatedResources.forEach((rows, i) => {
-        primary[through.table][i][related.table] = rows
+    // Reduce over the primary resources, starting with an empty array
+    let relatedPromises = primaryResources.reduce((promises, primary) => {
+      // Access the secondary resources nested inside the primary resource.
+      // For example, if primary is a single restaurant grab the `reviews`
+      // key inside of it (i.e. `restaurant.reviews`) and then map over those // nested resources
+      let resourcePromises = primary[through.table].map(resource => {
+        // Make a query to the secondary table based on the secondary resources
+        // id and get each one back. In the above example, this is like getting
+        // all the users based on the review's user_id.
+        return knex(related.table).where(related.key, resource[through.key])
       })
 
+      // Push all of those promises (i.e. for users) into the larger
+      // collection array after calling Promise.all on them. This makes
+      // sure the collection of related resources is at the same array
+      // index as the through resources
+      promises.push(Promise.all(resourcePromises))
+      return promises
+    }, [])
+
+    // What we have now is an array of `Promise.all`s, within which is an array
+    // of those related resources, which is also an array. We now just need
+    // to match everything back up to where it came from.
+    return Promise.all(relatedPromises).then(allRelatedResources => {
+      // Loop over each set of resources
+      allRelatedResources.forEach((relatedResources, i) => {
+        // Secondaries is a pointer to where the secondary resources are stored.
+        // For example, all reviews associated with each restaurant.
+        let secondaries = primaryResources[i][through.table]
+
+        // Get inside the through resource and attach the related resources
+        // on a key with the related table's name
+        relatedResources.forEach((relatedResourceRow, j) => {
+          let secondary = secondaries[j]
+          secondary[related.table] = relatedResourceRow
+        })
+      })
+
+      // Send it all back!
       return Promise.resolve(primaryResources)
     })
   }
