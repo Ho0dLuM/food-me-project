@@ -35,7 +35,7 @@ function newReviewRoute (req, res, next) {
 
 function editReviewRoute (req, res, next) {
   Review.get(req.params.id)
-  .then(Review.getRestaurants)
+  .then(Review.addRestaurants)
   .then(([review]) => {
     let [restaurant] = review.restaurants
     let { user } = req
@@ -75,7 +75,7 @@ function createReviewRoute (req, res, next) {
 function updateReviewRoute (req, res, next) {
   if (req.body.errors) {
     Review.get(req.params.id)
-    .then(Review.getRestaurants)
+    .then(Review.addRestaurants)
     .then(([{ restaurants: [restaurant] }]) => {
       let { user } = req
       let { errors, review } = req.body

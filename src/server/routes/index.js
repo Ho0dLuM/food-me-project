@@ -5,7 +5,7 @@ const { Restaurant } = require('../db')
 router.get('/', function (req, res, next) {
   Restaurant.get().limit(3)
   .then(Restaurant.addCuisineName)
-  .then(Restaurant.getAddresses)
+  .then(Restaurant.addAddresses)
   .then(restaurants => {
     res.render('index', { restaurants })
   })

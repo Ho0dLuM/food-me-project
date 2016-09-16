@@ -32,8 +32,8 @@ router.delete('/:id',
 function getAllRestaurantsRoute (req, res, next) {
   Restaurant.get().orderBy('name', 'ASC')
   .then(Restaurant.addCuisineName)
-  .then(Restaurant.getAddresses)
-  .then(Restaurant.getReviews)
+  .then(Restaurant.addAddresses)
+  .then(Restaurant.addReviews)
   .then(Restaurant.calculateRating)
   .then((restaurants) => res.render('restaurants/index', { restaurants }))
   .catch(util.catchError)
@@ -46,19 +46,19 @@ function newRestaurantRoute (req, res, next) {
 function getOneRestaurantRoute (req, res, next) {
   Restaurant.get(req.params.id)
   .then(Restaurant.addCuisineName)
-  .then(Restaurant.getAddresses)
-  .then(Restaurant.getReviews)
-  .then(Restaurant.getUsersThroughReviews)
+  .then(Restaurant.addAddresses)
+  .then(Restaurant.addReviews)
+  .then(Restaurant.addUsersThroughReviews)
   .then(Restaurant.calculateRating)
-  .then(Restaurant.getEmployees)
-  .then(Restaurant.getUsersThroughEmployees)
+  .then(Restaurant.addEmployees)
+  .then(Restaurant.addUsersThroughEmployees)
   .then(([restaurant]) => res.render('restaurants/show', { restaurant }))
   .catch(util.catchError)
 }
 
 function editRestaurantRoute (req, res, next) {
   Restaurant.get(req.params.id)
-  .then(Restaurant.getAddresses)
+  .then(Restaurant.addAddresses)
   .then(([restaurant]) => {
     let [address] = restaurant.addresses
     res.render('restaurants/edit', { restaurant, address, CUISINES })
@@ -96,9 +96,9 @@ function updateRestaurantRoute (req, res, next) {
 
 function deleteRestaurantRoute (req, res, next) {
   Restaurant.get(req.params.id)
-  .then(Restaurant.getAddresses)
-  .then(Restaurant.getReviews)
-  .then(Restaurant.getEmployees)
+  .then(Restaurant.addAddresses)
+  .then(Restaurant.addReviews)
+  .then(Restaurant.addEmployees)
   .then(([restaurant]) => {
     let [address] = restaurant.addresses
     let delEmps = restaurant.employees.map(emp => Employee.del(emp.id))

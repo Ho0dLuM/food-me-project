@@ -58,7 +58,7 @@ function validate (callback) {
   >> [{ id: 1, name: 'Restaurant 1', reviews: [...]}]
 ***/
 
-function getResource ({ table, primary, foreign }) {
+function addResource ({ table, primary, foreign }) {
   return (resources) => {
     let ids = resources.map(resource => resource[primary.key])
     let secondaries = knex(table).whereIn(foreign.key, ids)
@@ -94,7 +94,7 @@ function getResource ({ table, primary, foreign }) {
 // Take in an options object with a related and through key.
 // Through is the middle association (reviews in the above example)
 // while related is the final destination (users in the above example)
-function getRelated ({ related, through }) {
+function addRelated ({ related, through }) {
   // Return a function that takes an array of primary resources
   return (primaryResources) => {
     // Reduce over the primary resources, starting with an empty array
@@ -172,5 +172,5 @@ function compose (primaries, relationName, primaryName, secondaryName) {
 }
 
 module.exports = {
-  get, findOne, create, update, del, validate, getResource, getRelated, compose
+  get, findOne, create, update, del, validate, addResource, addRelated, compose
 }

@@ -6,7 +6,7 @@ module.exports = {
   get: util.get(table),
   update: util.update(table),
   del: util.del(table),
-  getUsers: util.getResource({
+  addUsers: util.addResource({
     table: 'users',
     primary: { resource: 'employee', key: 'user_id' },
     foreign: { resource: 'user', key: 'id' }

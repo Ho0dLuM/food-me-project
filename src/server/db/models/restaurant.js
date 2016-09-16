@@ -8,26 +8,26 @@ module.exports = {
   create: util.create(table),
   update: util.update(table),
   del: util.del(table),
-  getAddresses: util.getResource({
+  addAddresses: util.addResource({
     table: 'addresses',
     primary: { resource: 'restaurant', key: 'address_id' },
     foreign: { resource: 'address', key: 'id' }
   }),
-  getReviews: util.getResource({
+  addReviews: util.addResource({
     table: 'reviews',
     primary: { resource: 'restaurant', key: 'id' },
     foreign: { resource: 'review', key: 'restaurant_id' }
   }),
-  getEmployees: util.getResource({
+  addEmployees: util.addResource({
     table: 'employees',
     primary: { resource: 'restaurant', key: 'id' },
     foreign: { resource: 'employee', key: 'restaurant_id' }
   }),
-  getUsersThroughReviews: util.getRelated({
+  addUsersThroughReviews: util.addRelated({
     through: { table: 'reviews', key: 'user_id' },
     related: { table: 'users', key: 'id' }
   }),
-  getUsersThroughEmployees: util.getRelated({
+  addUsersThroughEmployees: util.addRelated({
     through: { table: 'employees', key: 'user_id' },
     related: { table: 'users', key: 'id' }
   }),

@@ -50,7 +50,7 @@ function createEmployeeRoute (req, res, next) {
 
 function editEmployeeRoute (req, res, next) {
   Employee.get(req.params.id)
-  .then(Employee.getUsers)
+  .then(Employee.addUsers)
   .then(([employee]) => {
     let [user] = employee.users
     res.render('employees/edit', { employee, user })
